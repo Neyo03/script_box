@@ -1,0 +1,9 @@
+RewriteEngine On 
+
+#L'utilisateur saisi : localhost/.../accueil
+#On veut obtenir localhost/.../index.php/p=accueil
+#Le but est d'insérer "index.php?p=" entre le nom du dossier actuel et le reste de l'url que l'utilisateur a saisi 
+
+
+
+RewriteRule ^([a-zA-Z0-9\/\-\_]*)$ index.php?p=$1
