@@ -12,11 +12,12 @@ Use Dao\ReponseDao;
             $listeReponse = $dao->findAllReponseByIdCommentaire($id);
             $setting = compact(['listeReponse']);
             if (isset($_POST['like'])) {
-                $dao->likeDao();
+                $dao->likeDao($_POST['id_reponse'], $_SESSION['idSession']);
+                
                 // $this->refresh(0);
             }
             if (isset($_POST['dislike'])) {
-                $dao->dislikeDao();
+                $dao->dislikeDao($_POST['id_reponse'], $_SESSION['idSession']);
                 // $this->refresh(0);
             }
             $this->afficherVue('anwser', $setting);

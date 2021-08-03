@@ -27,20 +27,6 @@ class ReponseDao extends Dao{
         }
         return $allModel;
     }
-    public function vote($id_reponse,$id_utilisateur,$vote){
-
-        $vote = new \Model\Vote();
-        $sql = $this->create($vote);
-        $connexion = new Database();
-        $requete= $connexion->prepare($sql);
-        $requete->execute([
-            ":id_vote"=> NULL, 
-            ":id_reponse"=>$id_reponse,
-            ":id_utilisateur"=> $id_utilisateur,
-            ":vote"=>$vote,
-        ]);
-        
-    }
 
     public function postAnswer($contenu, $id_utilisateur, $id_commentaire){
 
@@ -58,66 +44,54 @@ class ReponseDao extends Dao{
             ":dislike_reponse"=>0
         ]);
     }
-    public function updateLike($model){
+    
+    public function likeDao($id_reponse, $id_utilisateur){
+        $dao = new VoteDao; 
+        $dao->vote($id_reponse, $id_utilisateur, '1');
+        $this->updateLike();
+    }
+    public function dislikeDao($id_reponse, $id_utilisateur){
+        $dao = new VoteDao;
+        $dao->vote($id_reponse, $id_utilisateur, '-1');
+        $this->updateDisLike();
+
+    }
+    public function updateLike(){
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
             $table=$this->getTable();
             $connexion = new \Database();
             $id_reponse = $_POST['id_reponse'];
+           
             $sql="UPDATE `$table` SET `like_reponse` = :like_reponse WHERE `reponse`.`id_reponse` = $id_reponse";
-            return $sql;
-        } 
-    }
+            if (isset($_POST['like']) && $sql==true) {
+                $nbLike=$_POST['nb_like'];
+                $requete= $connexion->prepare($sql);
+                $requete->execute([
+                    ":like_reponse"=>$nbLike+1
+                ]);
+            }
+        }
+    } 
+    
     public function updateDisLike($model){
-
-       
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
             $table=$this->getTable();
             $connexion = new \Database();
             $id_reponse = $_POST['id_reponse'];
             $sql="UPDATE `$table` SET `dislike_reponse` = :dislike_reponse WHERE `reponse`.`id_reponse` = $id_reponse";
-            return $sql;
-        } 
-    }
-
-    public function likeDao(){
-
-        $like = new \Model\Reponse();
-        $sql=$this->updateLike($like); 
-        if (isset($_POST['like']) && $sql==true) {
-            //on prépare la requête 
-            if (isset($_POST['nb_like'])) {
-                $nbLike=$_POST['nb_like'];
-                echo $like->getLikeReponse();
-                $connexion = new Database();
-                $requete= $connexion->prepare($sql);
-                $requete->execute([
-                    ":like_reponse"=>$nbLike+1
-                ]);
-            }
-       
-        }
-    }
-    public function dislikeDao(){
-
-        $like = new \Model\Reponse();
-        $sql=$this->updateDisLike($like); 
-        if (isset($_POST['dislike']) && $sql==true) {
-            //on prépare la requête 
-            if (isset($_POST['nb_dislike'])) {
+            if (isset($_POST['dislike']) && $sql==true) {
                 $nbDisLike=$_POST['nb_dislike'];
-                echo $like->getLikeReponse();
-                $connexion = new Database();
                 $requete= $connexion->prepare($sql);
                 $requete->execute([
                     ":dislike_reponse"=>$nbDisLike+1
                 ]);
             }
-       
-        }
-
+        } 
     }
+
+  
 
 
 
