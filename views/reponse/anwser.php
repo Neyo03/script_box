@@ -13,7 +13,7 @@
                         <input type="hidden" name="nb_like" value="<?=$reponse->getLikeReponse()?>"><span><?=$reponse->getLikeReponse()?></span>
 
                 <?= (isset($_SESSION['pseudoSession'])) ? '</form>' : '' ?><?= (isset($_SESSION['pseudoSession'])) ? '<form action="" method="post">' : '' ?>
-                        <button class="btn_dislike" name="dislike" <?= (isset($_SESSION['pseudoSession'])) ? 'onclick="addDislike()"' : 'onclick="openConnexion()"'?>>Dislike</button>
+                        <button class="btn_dislike" name="dislike" <?= (isset($_SESSION['pseudoSession'])) ? 'onclick="addDislike()"' : 'onclick="openConnexion()"'?> onclick="this.enabled='false'">Dislike</button>
                         <input type="hidden" name="id_reponse" value="<?=$reponse->getIdReponse()?>">
                         <input type="hidden" name="nb_dislike" value="<?=$reponse->getDislikeReponse()?>"><span><?=$reponse->getDislikeReponse()?></span>
                 <?= (isset($_SESSION['pseudoSession'])) ? '</form>' : '' ?>

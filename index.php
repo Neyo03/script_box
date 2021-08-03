@@ -15,6 +15,7 @@ Autoloader::register();
     <link rel="stylesheet" href="../../views/css/style.css">
     <link rel="stylesheet" href="../views/css/style.css">
     <script src="../../js/formulaire.js"></script>
+    <script src="../../js/likeDislike.js"></script>
     <script src="../../js/openConnexion.js"></script>
 
     <title>Document</title>

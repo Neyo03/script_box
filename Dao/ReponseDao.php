@@ -10,9 +10,7 @@ class ReponseDao extends Dao{
         $connexion = new \Database();
         $req = $connexion->prepare("SELECT reponse.contenu, reponse.id_reponse, reponse.id_utilisateur, reponse.id_commentaire, reponse.like_reponse,reponse.dislike_reponse FROM ".$table." INNER JOIN commentaire USING (id_commentaire) WHERE reponse.id_commentaire = :id_commentaire ORDER BY like_reponse DESC");
         $req->execute([
-
             ":id_commentaire"=>$id
-
         ]);
         $result = $req->fetchAll();
         $model_class_name = "Model\\".ucfirst($this->getTable());
@@ -29,13 +27,25 @@ class ReponseDao extends Dao{
         }
         return $allModel;
     }
+    public function vote($id_reponse,$id_utilisateur,$vote){
+
+        $vote = new \Model\Vote();
+        $sql = $this->create($vote);
+        $connexion = new Database();
+        $requete= $connexion->prepare($sql);
+        $requete->execute([
+            ":id_vote"=> NULL, 
+            ":id_reponse"=>$id_reponse,
+            ":id_utilisateur"=> $id_utilisateur,
+            ":vote"=>$vote,
+        ]);
+        
+    }
 
     public function postAnswer($contenu, $id_utilisateur, $id_commentaire){
 
         $post = new \Model\Reponse();
-        $sql=$this->create($post);
-        
-            
+        $sql=$this->create($post);   
         //on prépare la requête 
         $connexion = new Database();
         $requete= $connexion->prepare($sql);
@@ -47,14 +57,8 @@ class ReponseDao extends Dao{
             ":like_reponse"=>0,
             ":dislike_reponse"=>0
         ]);
-        
-
-
-
     }
     public function updateLike($model){
-
-       
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
             $table=$this->getTable();
@@ -94,7 +98,6 @@ class ReponseDao extends Dao{
             }
        
         }
-
     }
     public function dislikeDao(){
 

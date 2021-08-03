@@ -10,9 +10,7 @@ Use Dao\CommentaireDao;
             $listeCommentaire = $dao->findAll();
             $setting = compact(['listeCommentaire']);
             $this->afficherVue('askQuestion', $setting);
-            if (isset($_POST['titre'])) {
-                $this->ask();
-            }
+            (isset($_POST['titre'])) ?$this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
             $this->afficherVue('forum', $setting);
             
@@ -30,15 +28,11 @@ Use Dao\CommentaireDao;
                 $reponse = new ReponseController;
                 $reponse->answer($settings[0]);
                 $reponse->showAnswer($settings[0]);
-                
+               
             }
             else {
                 echo'Page introuvable';
             }
-            
-        
-            
-
         }
         public function ask(){
             if (isset($_POST['titre'])) {
@@ -49,6 +43,12 @@ Use Dao\CommentaireDao;
                 $id_utilisateur=htmlspecialchars($_POST['id_utilisateur']);
                 if ($contenu != '' && $id_utilisateur != '' && $titre !='' && $id_tag!='') {
                     $dao->postAsk($titre,$contenu,$id_tag,$id_utilisateur);
+                    $this->refresh(0);
+                }
+                else{
+                    echo"Veillez remplir tous les champs";
+
+
                 }
             }
             

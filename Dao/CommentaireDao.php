@@ -39,7 +39,6 @@ class CommentaireDao extends Dao{
     
         $post = new \Model\Commentaire();
         $sql=$this->create($post);  
-        var_dump($sql);  
         //on prépare la requête 
         $connexion = new Database();
         $requete= $connexion->prepare($sql);
