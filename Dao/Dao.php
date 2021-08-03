@@ -32,6 +32,24 @@ class Dao {
         }
         return $allModel;
     }
+    public function find(){
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $req = $connexion->prepare("SELECT * FROM ".$table);
+        $req->execute();
+        $result = $req->fetch();
+        $model_class_name = "Model\\".ucfirst($this->getTable());
+        $allModel=[];
+        foreach ($result as $ligneResultat) {
+
+            $model = $this->arrayToModel($ligneResultat);
+            // On ajoute les produit à la liste des produits 
+            $allModel[]= $model;
+
+        }
+        return $allModel;
+    }
+
     public function create($model){
 
         $table=$this->getTable();
