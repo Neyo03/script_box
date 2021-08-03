@@ -4,15 +4,10 @@ namespace Model;
 
 
 class Vote{
-
     protected $id_utilisateur;
     protected $id_reponse; 
     protected $date_vote;
     protected $vote;
-
-
-
-
 
 
     /**

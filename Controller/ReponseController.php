@@ -13,7 +13,6 @@ Use Dao\ReponseDao;
             $setting = compact(['listeReponse']);
             if (isset($_POST['like'])) {
                 $dao->likeDao($_POST['id_reponse'], $_SESSION['idSession']);
-                
                 // $this->refresh(0);
             }
             if (isset($_POST['dislike'])) {

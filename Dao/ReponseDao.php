@@ -74,12 +74,13 @@ class ReponseDao extends Dao{
         }
     } 
     
-    public function updateDisLike($model){
+    public function updateDisLike(){
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
             $table=$this->getTable();
             $connexion = new \Database();
             $id_reponse = $_POST['id_reponse'];
+            
             $sql="UPDATE `$table` SET `dislike_reponse` = :dislike_reponse WHERE `reponse`.`id_reponse` = $id_reponse";
             if (isset($_POST['dislike']) && $sql==true) {
                 $nbDisLike=$_POST['nb_dislike'];
