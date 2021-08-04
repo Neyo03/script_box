@@ -48,17 +48,17 @@ class ReponseDao extends Dao{
     public function likeDao($id_reponse, $id_utilisateur){
         $dao = new VoteDao;
         $find = $dao->find($id_reponse,$id_utilisateur); 
+        $like = $this->findById($_POST['id_reponse']); 
         if ($find && $find->getVote() && $find->getIdReponse()== $id_reponse ) {
             if ($find->getVote()=="1") {
                 $dao->deleteLike($id_reponse,$id_utilisateur);
                 $this->updateLike("-1");
             }
             else if($find->getVote()=="-1") {
-                $this->updateDisLike("-1");
                 $dao->deleteLike($id_reponse,$id_utilisateur);
-                
                 $dao->vote($id_reponse, $id_utilisateur, '1');
-                $this->updateLike("+1");
+                $this->updateLike("+1",$find); 
+
             }
             header("Refresh: 0"); 
             
@@ -70,20 +70,20 @@ class ReponseDao extends Dao{
         header("Refresh: 0"); 
         
     }
+
     public function dislikeDao($id_reponse, $id_utilisateur){
         $dao = new VoteDao;
-        $find = $dao->find($id_reponse,$id_utilisateur); 
+        $find = $dao->find($id_reponse,$id_utilisateur);
+        $like = $this->findById($_POST['id_reponse']); 
         if ($find && $find->getVote() && $find->getIdReponse()== $id_reponse  ) {
             if ($find->getVote()=="-1") {
                 $dao->deleteLike($id_reponse,$id_utilisateur);
                 $this->updateDisLike("-1");  
             }
             else if ($find->getVote()=="1") {
-                $this->updateLike("-1");
                 $dao->deleteLike($id_reponse,$id_utilisateur);
-
                 $dao->vote($id_reponse, $id_utilisateur, '-1');
-                $this->updateDisLike("+1");
+                $this->updateDisLike("+1", $find); 
             }
             header("Refresh: 0"); 
             
@@ -96,14 +96,26 @@ class ReponseDao extends Dao{
         header("Refresh: 0"); 
 
     }
-    public function updateLike($operator){
+
+    public function updateCount(){
+
+
+
+
+
+
+    }
+    public function updateLike($operator, $bool=""){
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
             $table=$this->getTable();
             $connexion = new \Database();
             $id_reponse = $_POST['id_reponse'];
-           
-            $sql="UPDATE `$table` SET `like_reponse` = :like_reponse WHERE `reponse`.`id_reponse` = $id_reponse";
+            $former_vote = "";
+            if ($bool==true) {
+                $former_vote = ", `dislike_reponse` = dislike_reponse-1";
+            }
+            $sql="UPDATE `$table` SET `like_reponse` = :like_reponse $former_vote WHERE `reponse`.`id_reponse` = $id_reponse";
             if (isset($_POST['like']) && $sql==true) {
                 $nbLike=$_POST['nb_like'];
                 $requete= $connexion->prepare($sql);
@@ -122,14 +134,17 @@ class ReponseDao extends Dao{
         }
     } 
     
-    public function updateDisLike($operator){
+    public function updateDisLike($operator, $bool=""){
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
             $table=$this->getTable();
             $connexion = new \Database();
             $id_reponse = $_POST['id_reponse'];
-            
-            $sql="UPDATE `$table` SET `dislike_reponse` = :dislike_reponse WHERE `reponse`.`id_reponse` = $id_reponse";
+            $former_vote = "";
+            if ($bool==true) {
+                $former_vote = ", `like_reponse` = like_reponse-1";
+            }
+            $sql="UPDATE `$table` SET `dislike_reponse` = :dislike_reponse $former_vote WHERE `reponse`.`id_reponse` = $id_reponse";
             if (isset($_POST['dislike']) && $sql==true) {
                 $nbDisLike=$_POST['nb_dislike'];
                 $requete= $connexion->prepare($sql);
