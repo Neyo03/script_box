@@ -21,6 +21,7 @@ Use Dao\ReponseDao;
             }
             $this->afficherVue('anwser', $setting);
         }
+        
         public function answer($settings){
             $this->afficherVue('anwserForm');
             if (isset($_POST['contenu'])){

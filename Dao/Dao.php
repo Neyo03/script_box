@@ -32,22 +32,13 @@ class Dao {
         }
         return $allModel;
     }
-    public function find(){
+    public function find($id_reponse, $id_utilisateur){
         $table=$this->getTable();
         $connexion = new \Database();
-        $req = $connexion->prepare("SELECT * FROM ".$table);
+        $req = $connexion->prepare("SELECT * FROM ".$table." WHERE id_reponse = $id_reponse AND id_utilisateur = $id_utilisateur");
         $req->execute();
         $result = $req->fetch();
-        $model_class_name = "Model\\".ucfirst($this->getTable());
-        $allModel=[];
-        foreach ($result as $ligneResultat) {
-
-            $model = $this->arrayToModel($ligneResultat);
-            // On ajoute les produit à la liste des produits 
-            $allModel[]= $model;
-
-        }
-        return $allModel;
+        return $result ? $this->arrayToModel($result) : false;
     }
 
     public function create($model){
@@ -74,7 +65,6 @@ class Dao {
     }
 
     public function findById($id){
-
         $table=$this->getTable();
         $connexion = new \Database();
         $req = $connexion->prepare("SELECT * FROM ".$table." WHERE id_$table =:id_$table");
@@ -85,7 +75,6 @@ class Dao {
     }
 
     public function deleteById($id){
-
         $table=$this->getTable();
         $connexion = new \Database();
         $req = $connexion->prepare("DELETE FROM ".$table." WHERE id_$table =:id_$table");
@@ -93,7 +82,6 @@ class Dao {
     }
 
     public function arrayToModel($array){
-
         $model_class_name = "Model\\".ucfirst($this->getTable());
         
         $model = new  $model_class_name;

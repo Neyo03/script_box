@@ -25,18 +25,24 @@ class UtilisateurController extends Controller{
 
 
         if (isset($_POST["pseudo"])) {
-            $dao = new UtilisateurDao;
-            $utilisateur=$dao->connexionDao($_POST["pseudo"]);
+            if ($_POST["pseudo"]!="" && $_POST["mdp"]!="" ) {
+                $dao = new UtilisateurDao;
+                $utilisateur=$dao->connexionDao($_POST["pseudo"]);
 
-            if ($utilisateur &&password_verify($_POST["mdp"], $utilisateur->getPassword()) ) {
-                
-                $_SESSION['pseudoSession'] = $utilisateur->getPseudo();
-                $_SESSION['idSession'] = $utilisateur->getIdUtilisateur();
-                if ($utilisateur->getAdmin()==true) {
-                    $_SESSION['adminSession'] =$utilisateur->getAdmin();;
+                if ($utilisateur &&password_verify($_POST["mdp"], $utilisateur->getPassword()) ) {
+                    
+                    $_SESSION['pseudoSession'] = $utilisateur->getPseudo();
+                    $_SESSION['idSession'] = $utilisateur->getIdUtilisateur();
+                    if ($utilisateur->getAdmin()==true) {
+                        $_SESSION['adminSession'] =$utilisateur->getAdmin();;
+                    }
+                    
+                    $this->redirect('commentaire');
+                    
                 }
-                $this->redirect('accueil');
-                
+            }
+            else {
+                echo"Veuillez remplir tous les champs";
             }
             
         }

@@ -5,7 +5,6 @@ use Database;
 class VoteDao extends Dao{
 
     public function vote($id_reponse,$id_utilisateur,$vote){
-
     $vote_model = new \Model\Vote();
     $sql = $this->create($vote_model);
     $connexion = new Database();
@@ -17,4 +16,15 @@ class VoteDao extends Dao{
         ":vote"=>$vote,
     ]);
     }
+    public function deleteLike($id_reponse, $id_utilisateur){
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $req = $connexion->prepare("DELETE FROM ".$table." WHERE id_reponse =:id_reponse AND id_utilisateur = :id_utilisateur");
+        $req->execute(
+        [
+            ":id_reponse"=> $id_reponse,
+            ":id_utilisateur"=>$id_utilisateur
+        ]);
+    }
 }
+
