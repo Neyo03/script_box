@@ -25,8 +25,8 @@ Autoloader::register();
     <nav>
         <div class="primary-nav">
             <a href="/script_box/accueil"><img src="https://fakeimg.pl/55/" alt=""></a>
-                <form>
-                    <input type="text" placeholder="Search">
+                <form action="/script_box/accueil/search" method="POST">
+                    <input type="text" name="search" placeholder="Search">
                     <button class="" type="submit"><img src="" alt=""></button>
                 </form>
                 <div>

@@ -9,10 +9,10 @@ Use Dao\CommentaireDao;
             $dao = new CommentaireDao();
             $listeCommentaire = $dao->findAll();
             $setting = compact(['listeCommentaire']);
-            $this->afficherVue('askQuestion', $setting);
             (isset($_POST['titre'])) ?$this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
             $this->afficherVue('forum', $setting);
+            $this->afficherVue('askQuestion', $setting);
             
         }
         public function forum(){
@@ -26,8 +26,8 @@ Use Dao\CommentaireDao;
                 $setting = compact(['commentaire']);
                 $this->afficherVue('showPost', $setting);
                 $reponse = new ReponseController;
-                $reponse->answer($settings[0]);
                 $reponse->showAnswer($settings[0]);
+                $reponse->answer($settings[0]);
                
             }
             else {

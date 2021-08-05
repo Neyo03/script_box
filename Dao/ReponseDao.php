@@ -96,15 +96,6 @@ class ReponseDao extends Dao{
         header("Refresh: 0"); 
 
     }
-
-    public function updateCount(){
-
-
-
-
-
-
-    }
     public function updateLike($operator, $bool=""){
         if(isset($_POST['id_reponse'])){
             $like = new \Model\Reponse();
