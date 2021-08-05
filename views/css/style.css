@@ -1,17 +1,11 @@
 #blocNotConnect{
-
     background-color: rgba(223, 223, 223,0.5);
     border: 1px solid rgb(167, 167, 167);
     box-shadow: 1px 1px 10px rgba(0, 0, 0,.3);
     padding: 10px;
     border-radius: 3px;
-    
-   
-
 }
 #blocNotConnectReponse{
-
-
     display: none;
     width: 30%;
     height: 40%;
@@ -21,13 +15,8 @@
     padding: 10px;
     border-radius: 3px;
     position: absolute;
-    
-    
-
-
 }
 .blocFormAnswer{
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,8 +28,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    
-    
+
 }
 
 .blocFormAnswer>form>textarea{
@@ -57,9 +45,6 @@
     margin-top: 20px;
     width: 30%;
     padding: 10px;
-
-
-
 }
 
 .flex-center{
@@ -94,27 +79,30 @@
 }
 
 .containerPost {
-
     padding: 10px;
     margin-top: 20px;
-    margin-bottom: 30px;
-
+    
 }
 .blocPostAnswer{
-
-
     margin: 5px;
     border:solid 1px #333;
     border-radius: 3px;
     padding: 10px;
-
-
 }
 .blocTitrePost{
-
     border-bottom: solid 1px #333;
     display: flex;
     justify-content: space-between;
+}
 
-
+.blocCom{
+    border-bottom: solid 1px #333;
+    height: 25px;
+}
+.blocPagination{
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
 }

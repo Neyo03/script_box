@@ -12,7 +12,7 @@ class Dao {
         return $table;
 
     }
-    public function findAll(){
+    public function findAll($pagination=""){
         $table=$this->getTable();
         $connexion = new \Database();
         $req = $connexion->prepare("SELECT * FROM ".$table);

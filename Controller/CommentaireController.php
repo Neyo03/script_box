@@ -7,11 +7,19 @@ Use Dao\CommentaireDao;
     {
         public function index(){
             $dao = new CommentaireDao();
-            $listeCommentaire = $dao->findAll();
+
+            $pagination = $_POST['pagination'] ?? 1;
+            $settingPage = compact(['pagination']);
+            //Renvois le nombre de page MAX faire en sorte que le bouton ne s'affiche plus 
+            $this->pagination();
+            $listeCommentaire = $dao->findAll($pagination);
             $setting = compact(['listeCommentaire']);
-            (isset($_POST['titre'])) ?$this->ask() : '';
+
+            (isset($_POST['titre'])) ? $this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
+
             $this->afficherVue('forum', $setting);
+            $this->afficherVue("pagination", $settingPage);
             $this->afficherVue('askQuestion', $setting);
             
         }
@@ -52,6 +60,10 @@ Use Dao\CommentaireDao;
                 }
             }
             
+        }
+        public function pagination(){
+            $daoPage = new CommentaireDao();
+            return $daoPage->paginationDao();
         }
 
 

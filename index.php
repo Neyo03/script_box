@@ -14,11 +14,12 @@ Autoloader::register();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../views/css/style.css">
     <link rel="stylesheet" href="../views/css/style.css">
+    <link rel="stylesheet" href="./views/css/style.css">
     <script src="../../js/formulaire.js"></script>
     <script src="../../js/likeDislike.js"></script>
     <script src="../../js/openConnexion.js"></script>
 
-    <title>Document</title>
+    <title>Script_box / <?= $_GET['p'] ?></title>
 </head>
 <body>
 <header>

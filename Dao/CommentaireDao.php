@@ -5,10 +5,10 @@ use Database;
 class CommentaireDao extends Dao{
 
 
-   public function findAll(){
+   public function findAll($pagination=""){
         $table=$this->getTable();
         $connexion = new \Database();
-        $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN utilisateur USING(id_utilisateur) ");
+        $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN utilisateur USING(id_utilisateur) LIMIT ". ($pagination-1)*3 .",3;");
         $req->execute();
         $result = $req->fetchAll();
         $model_class_name = "Model\\".ucfirst($this->getTable());
@@ -51,6 +51,17 @@ class CommentaireDao extends Dao{
             ":id_commentaire"=>NULL,
         ]);     
         
+    }
+
+    public function paginationDao(){
+        $table=$this->getTable();
+        $connexion = new Database();
+        $countArticle="SELECT count(*) AS nb_article FROM $table";
+        $resultatCountArticle= $connexion->query($countArticle);
+        $countlisteArticles = $resultatCountArticle->fetch()['nb_article'];
+        $maxPage = ceil($countlisteArticles/3);
+        return $maxPage;
+
     }
 
 

@@ -35,8 +35,6 @@ Use Dao\ReponseDao;
                 }
                 else{
                     echo "Veillez remplir tous les champs";
-
-
                 }
             }
         }

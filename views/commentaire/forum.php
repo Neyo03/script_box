@@ -9,11 +9,11 @@
     <?php foreach ($listeCommentaire as $commentaire ):?>
         <div class="blocCom">
             <a href="/script_box/commentaire/showPost/<?= $commentaire->getIdCommentaire();?>" class="blocPost">
-
                 <h3><?= substr($commentaire->getTitre(),0,10)?>...</h3>
             </a>
         </div>
     <?php endforeach;?>
+    
 </div>
 
 
