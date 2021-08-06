@@ -11,14 +11,12 @@ class CommentaireDao extends Dao{
         $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
         
-        $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN utilisateur USING(id_utilisateur) LIMIT ". ($pagination-1)*3 .",3;");
+        $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN utilisateur USING(id_utilisateur) ORDER BY id_commentaire DESC LIMIT ". ($pagination-1)*10 .",10;");
         $req->execute();
         $result = $req->fetchAll();
         $model_class_name = "Model\\".ucfirst($table);
-        $model_class_Utilisateur = "Model\\".ucfirst($tableUtilisateur);
         // var_dump($model_class_name);
         $allModel=[];
-        $allModelUtilisateur=[];
 
 
 
@@ -26,12 +24,12 @@ class CommentaireDao extends Dao{
 
             $model = $this->arrayToModel($ligneResultat);
             $allModel[]= $model;
-            $modelUtilisateur = $utilisateur->arrayToModel($ligneResultat);
-            $allModelUtilisateur[]= $modelUtilisateur;
+            // $modelUtilisateur = $utilisateur->arrayToModel($ligneResultat);
+            // $allModelUtilisateur[]= $modelUtilisateur;
 
         }
         // var_dump($allModel);
-        $allModel[] = $allModelUtilisateur;
+        // $allModel[] = $allModelUtilisateur;
         return $allModel;
     }
     public function findById($id){
@@ -68,7 +66,7 @@ class CommentaireDao extends Dao{
         $countArticle="SELECT count(*) AS nb_article FROM $table";
         $resultatCountArticle= $connexion->query($countArticle);
         $countlisteArticles = $resultatCountArticle->fetch()['nb_article'];
-        $maxPage = ceil($countlisteArticles/3);
+        $maxPage = ceil($countlisteArticles/10);
         return $maxPage;
 
     }

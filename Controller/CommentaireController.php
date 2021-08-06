@@ -10,16 +10,11 @@ Use Dao\UtilisateurDao;
             $dao = new CommentaireDao();
             $daoUtilisateur = new UtilisateurDao();
 
-            
-
             $pagination = $_POST['pagination'] ?? 1;
             $maxPage = $this->pagination();
             $settingPage = compact(['pagination', 'maxPage']);
             $listeCommentaire = $dao->findAll($pagination);
-(            $model_class_Utilisateur = $daoUtilisateur->arrayToModel($listeCommentaire);
-            var_dump($model_class_Utilisateur);)
-            
-            $setting = compact(['listeCommentaire','model_class_Utilisateur']);
+            $setting = compact(['listeCommentaire']);
 
             (isset($_POST['titre'])) ? $this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';

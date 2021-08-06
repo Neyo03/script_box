@@ -15,6 +15,7 @@
                 <button name="">Précédent</button>
             </form>
         <?php
+
         }
         if ($pagination < $maxPage) {
     ?>
