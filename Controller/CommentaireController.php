@@ -2,18 +2,24 @@
 
 namespace Controller;
 Use Dao\CommentaireDao;
+Use Dao\UtilisateurDao;
 
     class CommentaireController extends Controller
     {
         public function index(){
             $dao = new CommentaireDao();
+            $daoUtilisateur = new UtilisateurDao();
+
+            
 
             $pagination = $_POST['pagination'] ?? 1;
-            $settingPage = compact(['pagination']);
-            //Renvois le nombre de page MAX faire en sorte que le bouton ne s'affiche plus 
-            $this->pagination();
+            $maxPage = $this->pagination();
+            $settingPage = compact(['pagination', 'maxPage']);
             $listeCommentaire = $dao->findAll($pagination);
-            $setting = compact(['listeCommentaire']);
+(            $model_class_Utilisateur = $daoUtilisateur->arrayToModel($listeCommentaire);
+            var_dump($model_class_Utilisateur);)
+            
+            $setting = compact(['listeCommentaire','model_class_Utilisateur']);
 
             (isset($_POST['titre'])) ? $this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
@@ -65,6 +71,11 @@ Use Dao\CommentaireDao;
             $daoPage = new CommentaireDao();
             return $daoPage->paginationDao();
         }
+        // public function showUtilisateur(){
+
+            
+
+        // }
 
 
 

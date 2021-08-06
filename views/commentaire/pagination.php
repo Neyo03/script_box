@@ -11,15 +11,18 @@
         }
         else {
         ?>
-            <form method="POST">
+            <form style="visibility: hidden;" method="POST">
                 <button name="">Précédent</button>
             </form>
         <?php
         }
-        
+        if ($pagination < $maxPage) {
     ?>
-    <form action="./forum" method="POST">
-        <input type="hidden" name="pagination" value="<?=$pagination+1?>">
-        <button name="">Suivant</button>
-    </form>
+        <form action="./forum" method="POST">
+            <input type="hidden" name="pagination" value="<?=$pagination+1?>">
+            <button name="">Suivant</button>
+        </form>
+    <?php
+        } 
+    ?>  
 </div>

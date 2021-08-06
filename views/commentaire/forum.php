@@ -7,12 +7,18 @@
     </div>
 
     <?php foreach ($listeCommentaire as $commentaire ):?>
-        <div class="blocCom">
-            <a href="/script_box/commentaire/showPost/<?= $commentaire->getIdCommentaire();?>" class="blocPost">
-                <h3><?= substr($commentaire->getTitre(),0,10)?>...</h3>
-            </a>
-        </div>
+        <a href="/script_box/commentaire/showPost/<?= $commentaire->getIdCommentaire();?>">
+            <div class="blocCom">
+            
+                    <h3><?= substr($commentaire->getTitre(),0,30);?>...</h3>
+                   
+                    <p> salut</p>
+                
+                
+            </div>
+        </a>
     <?php endforeach;?>
+
     
 </div>
 

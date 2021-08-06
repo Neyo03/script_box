@@ -37,8 +37,10 @@ Autoloader::register();
         </div>
     </nav>
     </header>
-    <?php
-    Application::demarrer();
-    ?>
+    <div class="container">
+        <?php
+        Application::demarrer();
+        ?>
+    </div>
 </body>
 </html>

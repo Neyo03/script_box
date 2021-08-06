@@ -1,9 +1,14 @@
+<div class="BlocTitrePost">
+<h2>Sujet : <?= $commentaire->getTitre()?></h2>
+
+</div>
 <div class="blocPost" >
-
-    <span>Sujet :</span><h3><?= $commentaire->getTitre()?></h3>
-    
+  
     <p><?= $commentaire->getContenu()?></p>
-    <a href="#blocForm"><button>Répondre</button></a>
+   
     
 
+</div>
+<div class="repondre">
+    <a href="#blocForm"><button>Répondre</button></a>
 </div>

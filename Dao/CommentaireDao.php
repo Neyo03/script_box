@@ -7,22 +7,31 @@ class CommentaireDao extends Dao{
 
    public function findAll($pagination=""){
         $table=$this->getTable();
+        $utilisateur = new UtilisateurDao();
+        $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
+        
         $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN utilisateur USING(id_utilisateur) LIMIT ". ($pagination-1)*3 .",3;");
         $req->execute();
         $result = $req->fetchAll();
-        $model_class_name = "Model\\".ucfirst($this->getTable());
-
+        $model_class_name = "Model\\".ucfirst($table);
+        $model_class_Utilisateur = "Model\\".ucfirst($tableUtilisateur);
+        // var_dump($model_class_name);
         $allModel=[];
+        $allModelUtilisateur=[];
+
 
 
         foreach ($result as $ligneResultat) {
 
             $model = $this->arrayToModel($ligneResultat);
-            // On ajoute les produit à la liste des produits 
             $allModel[]= $model;
+            $modelUtilisateur = $utilisateur->arrayToModel($ligneResultat);
+            $allModelUtilisateur[]= $modelUtilisateur;
 
         }
+        // var_dump($allModel);
+        $allModel[] = $allModelUtilisateur;
         return $allModel;
     }
     public function findById($id){

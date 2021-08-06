@@ -16,19 +16,25 @@
     border-radius: 3px;
     position: absolute;
 }
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
 .blocFormAnswer{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90%;
     padding: 5px;
 }
 
 .blocFormAnswer>form{
-
     display: flex;
     flex-direction: column;
     width: 100%;
-
 }
 
 .blocFormAnswer>form>textarea{
@@ -45,6 +51,22 @@
     margin-top: 20px;
     width: 30%;
     padding: 10px;
+}
+.blocPost{
+
+    width: 78%;
+    border: 1px solid #333;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+.BlocTitrePost{
+
+
+    background-color: rgba(0, 0, 0,.1);
+
+    border-radius: 3px;
+
 }
 
 .flex-center{
@@ -78,11 +100,14 @@
     font-weight: 300;
 }
 
-.containerPost {
+.containerPost {  
+    width: 80%;
     padding: 10px;
     margin-top: 20px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0,.1);
     
 }
+
 .blocPostAnswer{
     margin: 5px;
     border:solid 1px #333;
@@ -93,14 +118,25 @@
     border-bottom: solid 1px #333;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .blocCom{
     border-bottom: solid 1px #333;
-    height: 25px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    
 }
+.blocCom:hover{
+    background-color: rgba(199, 199, 199, 0.212);
+    
+}
+
 .blocPagination{
-    width: 98%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
