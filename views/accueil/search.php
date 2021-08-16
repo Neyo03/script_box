@@ -1,16 +1,13 @@
 <div>
 
-    
-        
-   
     <?php foreach ($listeSearch as $search ):?>
-        <div class="blocCom">
-            <a href="/script_box/commentaire/showPost/<?= $search->getIdCommentaire();?>" class="blocPost">
-
+        <a href="/script_box/commentaire/showPost/<?= $search->getIdCommentaire();?>">
+            <div class="blocSearch">
+                <p><?= $search->getPseudo($search->getIdCommentaire())?></p>
                 <h3><?= $search->getTitre()?></h3>
                 <p><?= $search->getContenu()?></p>
-            </a>
-        </div>
+            </div>
+        </a>
     <?php  endforeach;?>
 
 

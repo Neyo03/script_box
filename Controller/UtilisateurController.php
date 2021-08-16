@@ -8,7 +8,16 @@ use Dao\UtilisateurDao;
 class UtilisateurController extends Controller{
 
     public function index(){
-        $this->afficherVue('compte');
+
+        $dao = new UtilisateurDao();
+        $infoUser=  $dao->findById($_SESSION['idSession']);
+        $setting = compact(['infoUser']);
+        $this->afficherVue('compte', $setting);
+
+
+    }
+    public function compte(){
+        $this->index();
     }
     public function afficherUtilisateur(){
 
@@ -33,6 +42,7 @@ class UtilisateurController extends Controller{
                     
                     $_SESSION['pseudoSession'] = $utilisateur->getPseudo();
                     $_SESSION['idSession'] = $utilisateur->getIdUtilisateur();
+                    $_SESSION['pictureSession'] = $utilisateur->getPicture();
                     if ($utilisateur->getAdmin()==true) {
                         $_SESSION['adminSession'] =$utilisateur->getAdmin();;
                     }

@@ -23,6 +23,16 @@ class Commentaire {
         }
         return $utilisateur->getPseudo();
     }
+    public function getProfilPicture($id_commentaire){
+        $model = new Utilisateur();
+        $dao = new \Dao\UtilisateurDao();
+        $listeUtilisateur = $dao->findPseudoByIdCommentaire($id_commentaire);
+        $model="";
+        foreach ($listeUtilisateur as $utilisateur) {
+            $model = $utilisateur;
+        }
+        return $utilisateur->getPicture();
+    }
     public function getCount($id_commentaire){
 
         $dao = new \Dao\ReponseDao();

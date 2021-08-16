@@ -34,7 +34,6 @@ Use Dao\UtilisateurDao;
             if (!empty($settings)) {
                 $commentaire = $dao->findById($settings[0]);
             }
-           
             if($commentaire){
                 $setting = compact(['commentaire']);
                 $this->afficherVue('showPost', $setting);

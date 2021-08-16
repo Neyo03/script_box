@@ -30,7 +30,8 @@ class UtilisateurDao extends Dao{
             ":email"=>$emailUser,
             ":password"=>password_hash( $mdpUser, PASSWORD_DEFAULT),
             ":id_utilisateur"=>NULL,
-            ":admin"=>0
+            ":admin"=>0,
+            ":picture"=>"../../views/img/profil_picture/user.png"
             
         ]);
     }
@@ -88,6 +89,29 @@ class UtilisateurDao extends Dao{
         $connexion = new \Database();
         
         $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN commentaire USING(id_utilisateur) WHERE id_commentaire = $id_commentaire");
+        $req->execute();
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+        $allModel=[];
+
+        foreach ($result as $ligneResultat) {
+            $model = $this->arrayToModel($ligneResultat);
+            $allModel[]= $model;
+        }  
+
+        return $allModel;
+
+
+
+    }
+    public function findPseudoByIdReponse($id_reponse){
+
+        $table=$this->getTable();
+        $utilisateur = new UtilisateurDao();
+        $tableUtilisateur = $utilisateur->getTable();
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN reponse USING(id_utilisateur) WHERE id_reponse = $id_reponse");
         $req->execute();
         $result = $req->fetchAll();
         $model_class_name = "Model\\".ucfirst($table);

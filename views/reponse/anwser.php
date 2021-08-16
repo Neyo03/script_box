@@ -3,7 +3,12 @@
 
     <?php foreach ($listeReponse as $reponse ):?>
         <div class="blocPostAnswer">
-                <p><?=  $reponse->getContenu()?></p>
+                <div>
+                        <img class="profilPicture" src="../../views/img/profil_picture/<?= $reponse->getProfilPicture($reponse->getIdReponse())?>" alt="">
+                        <span><?= $reponse->getPseudo($reponse->getIdReponse())?></span>
+                        
+                </div>
+                <p><?= $reponse->getContenu()?></p>
                 <div class="blocFormLikeDislike">
                         <?= (isset($_SESSION['pseudoSession'])) ? '<form action="" method="post">' : '' ?>
                                 <button   <?= (isset($_SESSION['pseudoSession'])) ? 'onclick="openAnswerForm()"' : 'onclick="openConnexion()"'?> >Répondre</button>  

@@ -13,7 +13,26 @@ class Reponse{
     protected $dislike_reponse;
 
 
-
+    public function getPseudo($id_reponse){
+        $model = new Utilisateur();
+        $dao = new \Dao\UtilisateurDao();
+        $listeUtilisateur = $dao->findPseudoByIdReponse($id_reponse);
+        $model="";
+        foreach ($listeUtilisateur as $utilisateur) {
+            $model = $utilisateur;
+        }
+        return $utilisateur->getPseudo();
+    }
+    public function getProfilPicture($id_reponse){
+        $model = new Utilisateur();
+        $dao = new \Dao\UtilisateurDao();
+        $listeUtilisateur = $dao->findPseudoByIdReponse($id_reponse);
+        $model="";
+        foreach ($listeUtilisateur as $utilisateur) {
+            $model = $utilisateur;
+        }
+        return $utilisateur->getPicture();
+    }
 
     /**
      * Get the value of id_commentaire

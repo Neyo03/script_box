@@ -13,6 +13,8 @@ class Utilisateur{
     protected $nom;
     protected $prenom;
     protected $email;
+    protected $picture;
+    
 
     
  
@@ -153,6 +155,26 @@ class Utilisateur{
     public function setPseudo($pseudo)
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of picture
+     */ 
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Set the value of picture
+     *
+     * @return  self
+     */ 
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
 
         return $this;
     }
