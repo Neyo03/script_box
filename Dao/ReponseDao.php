@@ -153,6 +153,19 @@ class ReponseDao extends Dao{
             }
         } 
     }
+    public function countReponseByCommentaire($id_commentaire){
+        $table=$this->getTable();
+        $utilisateur = new UtilisateurDao();
+        $tableUtilisateur = $utilisateur->getTable();
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT count(id_reponse) FROM $table WHERE id_commentaire =$id_commentaire");
+        $req->execute();
+        $result = $req->fetch();
+        return $result;
+
+
+    }
 
   
 

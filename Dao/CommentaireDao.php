@@ -15,23 +15,17 @@ class CommentaireDao extends Dao{
         $req->execute();
         $result = $req->fetchAll();
         $model_class_name = "Model\\".ucfirst($table);
-        // var_dump($model_class_name);
         $allModel=[];
 
-
-
         foreach ($result as $ligneResultat) {
-
             $model = $this->arrayToModel($ligneResultat);
             $allModel[]= $model;
-            // $modelUtilisateur = $utilisateur->arrayToModel($ligneResultat);
-            // $allModelUtilisateur[]= $modelUtilisateur;
-
-        }
-        // var_dump($allModel);
-        // $allModel[] = $allModelUtilisateur;
+        }  
+      
         return $allModel;
     }
+    
+
     public function findById($id){
 
         $table=$this->getTable();
@@ -70,6 +64,8 @@ class CommentaireDao extends Dao{
         return $maxPage;
 
     }
+
+
 
 
 

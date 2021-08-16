@@ -17,6 +17,15 @@
         <?php
 
         }
+        for ($i=1; $i <=$maxPage ; $i++) { 
+        ?>
+            <form action="" method="post">
+                <input type="hidden" name="pagination" value="<?=$i?>">
+                <button type="submit"><?= $i?></button>
+            </form>
+        <?php
+            
+        }
         if ($pagination < $maxPage) {
     ?>
         <form action="./forum" method="POST">
@@ -25,5 +34,12 @@
         </form>
     <?php
         } 
+        else {
+        ?>
+        <form style="visibility: hidden;" method="POST">
+            <button name="">Suivant</button>
+        </form>
+        <?php
+        }
     ?>  
 </div>

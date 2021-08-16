@@ -6,18 +6,21 @@
         <span>Nb. Réponse </></span>
     </div>
 
-    <?php foreach ($listeCommentaire as $commentaire ):?>
+    <?php 
+        foreach ($listeCommentaire as $commentaire ):?>
         <a href="/script_box/commentaire/showPost/<?= $commentaire->getIdCommentaire();?>">
             <div class="blocCom">
-            
-                    <h3><?= substr($commentaire->getTitre(),0,30);?>...</h3>
                    
-                    <p> salut</p>
+                    <h3><?= substr($commentaire->getTitre(),0,30);?>...</h3>
+                    <p><?= $commentaire->getPseudo($commentaire->getIdCommentaire())?></p>
+                    <p><?= $commentaire->getcount($commentaire->getIdCommentaire())?></p>
                 
-                
+                    
             </div>
         </a>
+
     <?php endforeach;?>
+ 
 
     
 </div>

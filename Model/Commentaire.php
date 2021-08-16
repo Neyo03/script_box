@@ -13,7 +13,25 @@ class Commentaire {
     protected $id_tag;
     protected $id_utilisateur;
 
+    public function getPseudo($id_commentaire){
+        $model = new Utilisateur();
+        $dao = new \Dao\UtilisateurDao();
+        $listeUtilisateur = $dao->findPseudoByIdCommentaire($id_commentaire);
+        $model="";
+        foreach ($listeUtilisateur as $utilisateur) {
+            $model = $utilisateur;
+        }
+        return $utilisateur->getPseudo();
+    }
+    public function getCount($id_commentaire){
 
+        $dao = new \Dao\ReponseDao();
+    
+        $countReponse = $dao->countReponseByCommentaire($id_commentaire);
+        
+        return  $countReponse[0];
+    
+    }
 
     /**
      * Get the value of id_utilisateur

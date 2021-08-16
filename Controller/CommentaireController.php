@@ -15,7 +15,8 @@ Use Dao\UtilisateurDao;
             $settingPage = compact(['pagination', 'maxPage']);
             $listeCommentaire = $dao->findAll($pagination);
             $setting = compact(['listeCommentaire']);
-
+            // var_dump($setting);
+            
             (isset($_POST['titre'])) ? $this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
 
@@ -28,9 +29,12 @@ Use Dao\UtilisateurDao;
            $this->index();
         }
         public function showPost($settings){
-
             $dao = new CommentaireDao();
-            $commentaire = $dao->findById($settings[0]);
+            $commentaire="";
+            if (!empty($settings)) {
+                $commentaire = $dao->findById($settings[0]);
+            }
+           
             if($commentaire){
                 $setting = compact(['commentaire']);
                 $this->afficherVue('showPost', $setting);
@@ -56,8 +60,6 @@ Use Dao\UtilisateurDao;
                 }
                 else{
                     echo"Veillez remplir tous les champs";
-
-
                 }
             }
             

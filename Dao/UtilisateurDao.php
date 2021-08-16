@@ -70,10 +70,40 @@ class UtilisateurDao extends Dao{
                     }
                     return $this->arrayToModel($utilisateurs);
                 }
+    }
+    public function findUtilisateur($pseudo){
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN commentaire USING(id_utilisateur) WHERE pseudo ='$pseudo'");
+        $req->execute();
+        $result = $req->fetch();
+        return $result ? $this->arrayToModel($result) : false;
+
+    }
+    public function findPseudoByIdCommentaire($id_commentaire){
+
+        $table=$this->getTable();
+        $utilisateur = new UtilisateurDao();
+        $tableUtilisateur = $utilisateur->getTable();
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN commentaire USING(id_utilisateur) WHERE id_commentaire = $id_commentaire");
+        $req->execute();
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+        $allModel=[];
+
+        foreach ($result as $ligneResultat) {
+            $model = $this->arrayToModel($ligneResultat);
+            $allModel[]= $model;
+        }  
+
+        return $allModel;
 
 
 
     }
+    
 
     
     

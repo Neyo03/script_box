@@ -1,5 +1,4 @@
 function openConnexion() {
-
     form = document.getElementById("blocNotConnectReponse")
     form.style.display = "flex";
     
