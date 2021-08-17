@@ -14,6 +14,7 @@ class Utilisateur{
     protected $prenom;
     protected $email;
     protected $picture;
+    protected $biographie;
     
 
     
@@ -175,6 +176,26 @@ class Utilisateur{
     public function setPicture($picture)
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of biographie
+     */ 
+    public function getBiographie()
+    {
+        return $this->biographie;
+    }
+
+    /**
+     * Set the value of biographie
+     *
+     * @return  self
+     */ 
+    public function setBiographie($biographie)
+    {
+        $this->biographie = $biographie;
 
         return $this;
     }

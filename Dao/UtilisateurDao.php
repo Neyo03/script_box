@@ -31,7 +31,8 @@ class UtilisateurDao extends Dao{
             ":password"=>password_hash( $mdpUser, PASSWORD_DEFAULT),
             ":id_utilisateur"=>NULL,
             ":admin"=>0,
-            ":picture"=>"../../views/img/profil_picture/user.png"
+            ":picture"=>"user.png",
+            ":biographie"=>NULL
             
         ]);
     }

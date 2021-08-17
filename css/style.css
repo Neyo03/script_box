@@ -18,19 +18,19 @@
 }
 .profilPicture{
 
-    width: 30px;
-    padding: 5px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    background-color: rgb(73, 73, 73);
-
+    /* border:2px rgb(105, 105, 105) solid; */
 
 
 }
 .compteProfilPicture{
 
-    width: 100px;
+    width: 150px;
+    height: 150px;
     padding: 5px;
-    background-color: rgb(73, 73, 73);
+
 
 
 

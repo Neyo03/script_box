@@ -19,6 +19,13 @@ class UtilisateurController extends Controller{
     public function compte(){
         $this->index();
     }
+    public function compte_edit(){
+        $dao = new UtilisateurDao();
+        $infoUser=  $dao->findById($_SESSION['idSession']);
+        $setting = compact(['infoUser']);
+        $this->afficherVue('compte_edit',$setting);
+
+    }
     public function afficherUtilisateur(){
 
         $dao =new UtilisateurDao();
