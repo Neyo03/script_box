@@ -23,20 +23,22 @@ Use Dao\ReponseDao;
         }
         
         public function answer($settings){
-            $this->afficherVue('anwserForm');
+            
             if (isset($_POST['contenu'])){
+
                 $dao= new ReponseDao;
                 $contenu= htmlspecialchars($_POST['contenu']);
                 $id_utilisateur = htmlspecialchars($_POST['id_utilisateur']);
                 $id_commentaire = $settings;
                 if ($contenu != '' && $id_utilisateur != '' && $id_commentaire!='') {
                     $dao->postAnswer($contenu, $id_utilisateur, $id_commentaire);
-
+                    
                 }
                 else{
                     echo "Veillez remplir tous les champs";
                 }
             }
+            $this->afficherVue('anwserForm');
         }
 
 

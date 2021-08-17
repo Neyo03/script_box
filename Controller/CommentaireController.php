@@ -38,8 +38,10 @@ Use Dao\UtilisateurDao;
                 $setting = compact(['commentaire']);
                 $this->afficherVue('showPost', $setting);
                 $reponse = new ReponseController;
+                
                 $reponse->showAnswer($settings[0]);
                 $reponse->answer($settings[0]);
+                
                
             }
             else {

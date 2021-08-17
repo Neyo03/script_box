@@ -37,16 +37,15 @@ class UtilisateurController extends Controller{
     }
     public function compte_edit(){
         $dao = new UtilisateurDao();
-        var_dump($_FILES['picture']['name']);
-        if (isset($_POST['pseudo']) OR isset($_FILES['picture']) OR isset($_POST['biographie']) OR isset($_POST['prenom']) OR isset($_POST['nom']) ) {
-            if ($_POST['pseudo']!="" OR $_FILES['picture']!="" OR $_POST['biographie']!="" OR $_POST['prenom']!="" OR
+        if (isset($_POST['pseudo']) OR isset($_FILES['picture']['name']) OR isset($_POST['biographie']) OR isset($_POST['prenom']) OR isset($_POST['nom']) ) {
+            if ($_POST['pseudo']!="" OR $_FILES['picture']['name']!="" OR $_POST['biographie']!="" OR $_POST['prenom']!="" OR
             $_POST['nom']!="" ) {
                 $pseudo = htmlspecialchars($_POST['pseudo']);
                 $biographie = htmlspecialchars($_POST['biographie']);
                 $nom = htmlspecialchars($_POST['nom']);
                 $prenom = htmlspecialchars($_POST['prenom']);
                 $picture =$_FILES['picture']['name'];
-                var_dump($_FILES['picture']['name']);
+                
 
                 $update = $dao->updateUtilisateurCompte($pseudo,$biographie,$prenom,$nom,$picture,$_SESSION['idSession']);
                 if ($update) {
@@ -55,6 +54,8 @@ class UtilisateurController extends Controller{
                 }
                 else {
                     echo "Votre Compte a bien été modifié";
+                    $_SESSION['pictureSession'] = $picture;
+                    $this->refresh(0);
                 }
             }
             else {

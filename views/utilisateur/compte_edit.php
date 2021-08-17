@@ -5,14 +5,9 @@
             <h5>Pseudo</h5>
             <input type="text" name="pseudo" value="<?= $infoUser->getPseudo();?>" id="">
             <br>
-            <div class="fileinputs">
-                    <input type="file" name="picture" class="file" id="imgInp" value="<?= $infoUser->getPicture();?>"/>
-                    <div class="fakefile">
-                        <input placeholder=" Modifier l'image" />
-                        <img id="blah" src="#" alt="" />
-                        <img id="blah1" class="compteProfilPicture" src="../../../script_box/views/img/profil_picture/<?= $infoUser->getPicture();?>" alt="">
-                    </div>
-            </div>
+            <img  class="compteProfilPicture" src="../../../script_box/views/img/profil_picture/<?= $infoUser->getPicture();?>" alt="">
+            <input type="file" name="picture" value="<?= $infoUser->getPicture();?>"/>
+            
             
             <div class="blocBio">
                 <h5>Biographie</h5>
