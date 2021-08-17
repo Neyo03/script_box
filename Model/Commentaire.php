@@ -13,7 +13,7 @@ class Commentaire {
     protected $id_tag;
     protected $id_utilisateur;
 
-    public function getPseudo($id_commentaire){
+    public function afficherPseudo($id_commentaire){
         $model = new Utilisateur();
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdCommentaire($id_commentaire);
@@ -23,7 +23,7 @@ class Commentaire {
         }
         return $utilisateur->getPseudo();
     }
-    public function getProfilPicture($id_commentaire){
+    public function afficherProfilPicture($id_commentaire){
         $model = new Utilisateur();
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdCommentaire($id_commentaire);
@@ -33,7 +33,7 @@ class Commentaire {
         }
         return $utilisateur->getPicture();
     }
-    public function getCount($id_commentaire){
+    public function afficherCount($id_commentaire){
 
         $dao = new \Dao\ReponseDao();
     

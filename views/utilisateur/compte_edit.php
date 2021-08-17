@@ -1,10 +1,19 @@
 <div class="blocProfil">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <h4>Information Principal</h4>
         <div class="infoPrincipalCompte">
-            <img class="compteProfilPicture" src="../../script_box/views/img/profil_picture/<?= $infoUser->getPicture();?>" alt="">
             <h5>Pseudo</h5>
-            <input type="text" name=pseudo" value="<?= $infoUser->getPseudo();?>" id="">
+            <input type="text" name="pseudo" value="<?= $infoUser->getPseudo();?>" id="">
+            <br>
+            <div class="fileinputs">
+                    <input type="file" name="picture" class="file" id="imgInp" value="<?= $infoUser->getPicture();?>"/>
+                    <div class="fakefile">
+                        <input placeholder=" Modifier l'image" />
+                        <img id="blah" src="#" alt="" />
+                        <img id="blah1" class="compteProfilPicture" src="../../../script_box/views/img/profil_picture/<?= $infoUser->getPicture();?>" alt="">
+                    </div>
+            </div>
+            
             <div class="blocBio">
                 <h5>Biographie</h5>
                 <textarea name="biographie" id="" cols="30" rows="5"><?= $infoUser->getBiographie();?></textarea>

@@ -161,3 +161,48 @@
     justify-content: space-between;
     margin-bottom: 50px;
 }
+div.fileinputs {
+	position: relative;
+    background-color: transparent;
+    margin-bottom: 5px;
+}
+
+div.fakefile {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+    display: flex;
+    
+}
+div.fakefile>input {
+	background-color: rgba(168, 167, 167, 0.1);
+    border:  1px solid rgb(201, 201, 201);
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    
+    
+}
+div.fakefile>img {
+	margin-left: 80px;
+    position: absolute;
+    bottom: 0;
+    left: 90px;
+
+}
+
+input.file {
+	position: relative;
+	text-align: right;
+	-moz-opacity:0 ;
+	opacity: 0;
+	z-index: 2;
+}
+
+#blah{
+    z-index: 2;
+}
+#blah1{
+    z-index: 1;
+}

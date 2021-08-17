@@ -4,8 +4,8 @@
     <?php foreach ($listeReponse as $reponse ):?>
         <div class="blocPostAnswer">
                 <div>
-                        <img class="profilPicture" src="../../views/img/profil_picture/<?= $reponse->getProfilPicture($reponse->getIdReponse())?>" alt="">
-                        <span><?= $reponse->getPseudo($reponse->getIdReponse())?></span>
+                        <a href="/script_box/utilisateur/profil/<?=$reponse->getIdUtilisateur()?>"><img class="profilPicture" src="../../views/img/profil_picture/<?= $reponse->afficherProfilPicture($reponse->getIdReponse())?>" alt=""> <span><?= $reponse->afficherPseudo($reponse->getIdReponse())?></span></a>
+                       
                         
                 </div>
                 <p><?= $reponse->getContenu()?></p>

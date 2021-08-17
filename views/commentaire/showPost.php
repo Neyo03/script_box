@@ -5,8 +5,8 @@
 </div>
 <div class="blocPost" >
     <div>
-        <img class="profilPicture" src="../../views/img/profil_picture/<?=$commentaire->getProfilPicture($commentaire->getIdCommentaire());?>" alt="">
-        <span><?= $commentaire->getPseudo($commentaire->getIdCommentaire());?></span>
+        <a href="/script_box/utilisateur/profil/<?=$commentaire->getIdUtilisateur()?>"><img class="profilPicture" src="../../views/img/profil_picture/<?=$commentaire->afficherProfilPicture($commentaire->getIdCommentaire());?>" alt="">
+        <span><?= $commentaire->afficherPseudo($commentaire->getIdCommentaire());?></span></a>
     </div>
     <p><?= $commentaire->getContenu();?></p>
    

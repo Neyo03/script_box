@@ -13,7 +13,7 @@ class Reponse{
     protected $dislike_reponse;
 
 
-    public function getPseudo($id_reponse){
+    public function afficherPseudo($id_reponse){
         $model = new Utilisateur();
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdReponse($id_reponse);
@@ -23,7 +23,7 @@ class Reponse{
         }
         return $utilisateur->getPseudo();
     }
-    public function getProfilPicture($id_reponse){
+    public function afficherProfilPicture($id_reponse){
         $model = new Utilisateur();
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdReponse($id_reponse);

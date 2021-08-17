@@ -12,8 +12,8 @@
             <div class="blocCom">
                    
                     <h3><?= substr($commentaire->getTitre(),0,30);?>...</h3>
-                    <p><?= $commentaire->getPseudo($commentaire->getIdCommentaire())?></p>
-                    <p><?= $commentaire->getcount($commentaire->getIdCommentaire())?></p>
+                    <p><?= $commentaire->afficherPseudo($commentaire->getIdCommentaire())?></p>
+                    <p><?= $commentaire->afficherCount($commentaire->getIdCommentaire())?></p>
                 
                     
             </div>

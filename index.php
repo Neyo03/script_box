@@ -18,6 +18,8 @@ Autoloader::register();
     <script src="../../js/formulaire.js"></script>
     <script src="../../js/likeDislike.js"></script>
     <script src="../../js/openConnexion.js"></script>
+    <script src="../../js/afficheImg.js"></script>
+    
 
     <title>Script_box / <?= $_GET['p'] ?></title>
 </head>
@@ -35,7 +37,7 @@ Autoloader::register();
                         if(isset($_SESSION['pseudoSession'])){  
                         ?>
                         <div>
-                            <a  href="/script_box/utilisateur/compte"><img class="profilPicture" src="../../script_box/views/img/profil_picture/<?=$_SESSION['pictureSession']?>" alt="">Mon compte
+                            <a  href="/script_box/utilisateur/compte"><img class="profilPicture" src="../../../script_box/views/img/profil_picture/<?=$_SESSION['pictureSession']?>" alt="">Mon compte
                             </a>
                         </div> 
                         <a class="" href='/script_box/utilisateur/deconnexion'>Deconnexion</a> 
@@ -43,7 +45,7 @@ Autoloader::register();
                         }else{
                         ?> 
                         <div>
-                            <a  href="/script_box/utilisateur/connexion"><img class="profilPicture" src="../../script_box/views/img/profil_picture/user.png" alt="">Mon compte
+                            <a  href="/script_box/utilisateur/connexion"><img class="profilPicture" src="../../../script_box/views/img/profil_picture/user.png" alt="">Mon compte
                             </a>
                         </div> 
                         <a class="" href='/script_box/utilisateur/connexion'>Connexion</a> <a class="" href='/script_box/utilisateur/inscription'>Inscription</a>

@@ -20,7 +20,7 @@ class UtilisateurDao extends Dao{
         $utilisateur = new \Model\Utilisateur();
         $sql=$this->create($utilisateur);
             
-        //on prépare le requête 
+        //on prépare la requête 
         $connexion = new Database();
         $requete= $connexion->prepare($sql);
         $requete->execute([
@@ -126,6 +126,24 @@ class UtilisateurDao extends Dao{
         return $allModel;
 
 
+
+    }
+
+    public function updateUtilisateurCompte($pseudo,$biographie,$prenom,$nom,$picture,$id_utilisateur){
+
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $sql="UPDATE `$table` SET `nom` = :nom, `prenom` = :prenom , `biographie` = :biographie , `pseudo` = :pseudo, `picture` = :picture " ." WHERE `utilisateur`.id_utilisateur = $id_utilisateur "; 
+        $requete= $connexion->prepare($sql);
+        $requete->execute([
+            ":nom"=> $nom, 
+            ":prenom"=> $prenom,
+            ":pseudo"=>$pseudo,
+            ":biographie"=>$biographie,
+            ":picture"=>$picture
+            
+        ]);
+        
 
     }
     

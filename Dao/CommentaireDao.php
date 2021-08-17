@@ -64,6 +64,29 @@ class CommentaireDao extends Dao{
         return $maxPage;
 
     }
+    public function findCommentaireByIdUtilisateur($id_utilisateur){
+
+        $table=$this->getTable();
+        $utilisateur = new UtilisateurDao();
+        $tableUtilisateur = $utilisateur->getTable();
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT * FROM $table WHERE id_utilisateur = $id_utilisateur");
+        $req->execute();
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+        $allModel=[];
+
+        foreach ($result as $ligneResultat) {
+            $model = $this->arrayToModel($ligneResultat);
+            $allModel[]= $model;
+        }  
+
+        return $allModel;
+
+
+
+    }
 
 
 

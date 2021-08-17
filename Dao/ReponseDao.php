@@ -31,14 +31,15 @@ class ReponseDao extends Dao{
     public function postAnswer($contenu, $id_utilisateur, $id_commentaire){
 
         $post = new \Model\Reponse();
-        $sql=$this->create($post);   
+        $sql=$this->create($post);  
+        
         //on prépare la requête 
         $connexion = new Database();
         $requete= $connexion->prepare($sql);
         $requete->execute([
             ":contenu"=> $contenu, 
             ":id_reponse"=>NULL,
-            ":id_utilisateur"=> $id_utilisateur,
+            ":id_utilisateur"=>$id_utilisateur,
             ":id_commentaire"=>$id_commentaire,
             ":like_reponse"=>0,
             ":dislike_reponse"=>0
