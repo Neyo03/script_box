@@ -3,7 +3,6 @@
 
 namespace Controller ;
 
-
 class Controller {
 
     public function getFolder(){
@@ -45,6 +44,18 @@ class Controller {
             return strtolower($email);
         }
         return false;
+
+    }
+    
+    public function pagination($id_commentaire=""){
+        $controller= $this->getController();
+        $dao = new $controller;
+        return $dao->paginationDao($id_commentaire);
+    }
+    public function getController(){
+        $controller = substr(get_class($this),11,-10);
+        $controller = "\\Dao\\".$controller."Dao";
+        return $controller;
 
     }
 

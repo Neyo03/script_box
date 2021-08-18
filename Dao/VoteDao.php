@@ -26,5 +26,15 @@ class VoteDao extends Dao{
             ":id_utilisateur"=>$id_utilisateur
         ]);
     }
+    public function findVote($id_utilisateur,$id_reponse){
+
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $req = $connexion->query("SELECT * FROM ".$table." WHERE id_utilisateur = $id_utilisateur AND id_reponse= $id_reponse");
+        $result = $req->fetchAll();
+        return $result;
+
+
+    }
 }
 

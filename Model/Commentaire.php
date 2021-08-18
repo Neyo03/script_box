@@ -14,24 +14,24 @@ class Commentaire {
     protected $id_utilisateur;
 
     public function afficherPseudo($id_commentaire){
-        $model = new Utilisateur();
+
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdCommentaire($id_commentaire);
         $model="";
         foreach ($listeUtilisateur as $utilisateur) {
             $model = $utilisateur;
         }
-        return $utilisateur->getPseudo();
+        return $model->getPseudo();
     }
     public function afficherProfilPicture($id_commentaire){
-        $model = new Utilisateur();
+
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdCommentaire($id_commentaire);
         $model="";
         foreach ($listeUtilisateur as $utilisateur) {
             $model = $utilisateur;
         }
-        return $utilisateur->getPicture();
+        return $model->getPicture();
     }
     public function afficherCount($id_commentaire){
 

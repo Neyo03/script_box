@@ -14,25 +14,36 @@ class Reponse{
 
 
     public function afficherPseudo($id_reponse){
-        $model = new Utilisateur();
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdReponse($id_reponse);
         $model="";
         foreach ($listeUtilisateur as $utilisateur) {
             $model = $utilisateur;
         }
-        return $utilisateur->getPseudo();
+        return  $model->getPseudo();
     }
     public function afficherProfilPicture($id_reponse){
-        $model = new Utilisateur();
         $dao = new \Dao\UtilisateurDao();
         $listeUtilisateur = $dao->findPseudoByIdReponse($id_reponse);
+
         $model="";
         foreach ($listeUtilisateur as $utilisateur) {
             $model = $utilisateur;
         }
-        return $utilisateur->getPicture();
+        return  $model->getPicture();
     }
+    public function afficherLike($id_utilisateur, $id_reponse){
+
+        $dao = new \Dao\VoteDao();
+        $listeVote = $dao->findVote($id_utilisateur,$id_reponse);
+        $model="";
+        foreach ($listeVote as $vote) {
+            $model = $vote;
+        }
+        
+        return $model;
+    }
+    
 
     /**
      * Get the value of id_commentaire

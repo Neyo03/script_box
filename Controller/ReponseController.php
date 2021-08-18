@@ -3,14 +3,21 @@
 namespace Controller;
 Use Dao\CommentaireDao;
 Use Dao\ReponseDao;
+Use Dao\VoteDao;
+
 
     class ReponseController extends Controller
     {
 
         public function showAnswer($id){
+            $controller = new CommentaireController();
             $dao = new ReponseDao();
-            $listeReponse = $dao->findAllReponseByIdCommentaire($id);
+            $pagination = $_POST['pagination'] ?? 1;
+
+            $maxPage=$this->pagination($id);
+            $listeReponse = $dao->findAllReponseByIdCommentaire($id, $pagination);
             $setting = compact(['listeReponse']);
+            $settingPage = compact(['pagination', 'maxPage']);
             if (isset($_POST['like'])) {
                 $dao->likeDao($_POST['id_reponse'], $_SESSION['idSession']);
                 $this->refresh(0);
@@ -20,6 +27,10 @@ Use Dao\ReponseDao;
                 $this->refresh(0);
             }
             $this->afficherVue('anwser', $setting);
+            if ($maxPage>0) {
+                $controller->afficherVue('pagination', $settingPage);
+            }
+            
         }
         
         public function answer($settings){

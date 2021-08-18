@@ -5,12 +5,12 @@ use Database;
 class AccueilDao extends Dao{
 
 
-    public function findSearch($search){
+    public function findSearch($search,$pagination){
 
         $commentaire = new commentaireDao(); 
         $table=$commentaire->getTable();
         $connexion = new \Database();
-        $req = $connexion->prepare("SELECT * FROM commentaire WHERE titre LIKE :titre OR contenu LIKE :contenu ");
+        $req = $connexion->prepare("SELECT * FROM commentaire WHERE titre LIKE :titre OR contenu LIKE :contenu ORDER BY id_commentaire DESC LIMIT ". ($pagination-1)*10 .",10;");
         $req->execute([
 
             ":titre"=>'%'. $search .'%',

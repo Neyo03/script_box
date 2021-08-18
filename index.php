@@ -29,7 +29,7 @@ Autoloader::register();
         <div class="primary-nav">
             <a href="/script_box/accueil"><img src="https://fakeimg.pl/55/" alt=""></a>
                 <form action="/script_box/accueil/search" method="POST">
-                    <input type="text" name="search" placeholder="Search">
+                    <input type="text" name="search" value="<?php if(isset($_POST['search']){ echo $_POST['search'];} else {echo'';};?>"  placeholder="Search">
                     <button class="" type="submit"><img src="" alt=""></button>
                 </form>
                 <div>

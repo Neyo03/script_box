@@ -54,16 +54,7 @@ class CommentaireDao extends Dao{
         
     }
 
-    public function paginationDao(){
-        $table=$this->getTable();
-        $connexion = new Database();
-        $countArticle="SELECT count(*) AS nb_article FROM $table";
-        $resultatCountArticle= $connexion->query($countArticle);
-        $countlisteArticles = $resultatCountArticle->fetch()['nb_article'];
-        $maxPage = ceil($countlisteArticles/10);
-        return $maxPage;
 
-    }
     public function findCommentaireByIdUtilisateur($id_utilisateur){
 
         $table=$this->getTable();

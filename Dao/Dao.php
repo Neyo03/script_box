@@ -124,9 +124,25 @@ class Dao {
   
         }
         return $array;
+    }
+    public function paginationDao($id_commentaire=""){
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $where="";
+        if ($table=="reponse") {
+            $where = "WHERE id_commentaire = $id_commentaire";
+        }
+        $count="SELECT count(*) AS page FROM $table $where";
+        
+        $resultatCount= $connexion->query($count);
+        $countliste = $resultatCount->fetch()['page'];
+        $maxPage=0;
+        if ($countliste>0) {
+            $maxPage = ceil($countliste/10);
+        }
 
-
-
+        
+        return $maxPage;
 
     }
 

@@ -5,10 +5,10 @@ use Database;
 class ReponseDao extends Dao{
 
 
-    public function findAllReponseByIdCommentaire($id){
+    public function findAllReponseByIdCommentaire($id, $pagination){
         $table=$this->getTable();
         $connexion = new \Database();
-        $req = $connexion->prepare("SELECT reponse.contenu, reponse.id_reponse, reponse.id_utilisateur, reponse.id_commentaire, reponse.like_reponse,reponse.dislike_reponse FROM ".$table." INNER JOIN commentaire USING (id_commentaire) WHERE reponse.id_commentaire = :id_commentaire ORDER BY like_reponse DESC");
+        $req = $connexion->prepare("SELECT reponse.contenu, reponse.id_reponse, reponse.id_utilisateur, reponse.id_commentaire, reponse.like_reponse,reponse.dislike_reponse FROM ".$table." INNER JOIN commentaire USING (id_commentaire) WHERE reponse.id_commentaire = :id_commentaire ORDER BY like_reponse DESC LIMIT ". ($pagination-1)*10 .",10;");
         $req->execute([
             ":id_commentaire"=>$id
         ]);
@@ -45,6 +45,7 @@ class ReponseDao extends Dao{
             ":dislike_reponse"=>0
         ]);
     }
+   
     
     public function likeDao($id_reponse, $id_utilisateur){
         $dao = new VoteDao;

@@ -8,8 +8,6 @@ Use Dao\UtilisateurDao;
     {
         public function index(){
             $dao = new CommentaireDao();
-            $daoUtilisateur = new UtilisateurDao();
-
             $pagination = $_POST['pagination'] ?? 1;
             $maxPage = $this->pagination();
             $settingPage = compact(['pagination', 'maxPage']);
@@ -65,15 +63,12 @@ Use Dao\UtilisateurDao;
             }
             
         }
-        public function pagination(){
-            $daoPage = new CommentaireDao();
-            return $daoPage->paginationDao();
-        }
-        // public function showUtilisateur(){
-
-            
-
+        // public function pagination(){
+        //     $daoPage = new CommentaireDao();
+        //     return $daoPage->paginationDao();
         // }
+
+
 
 
 
