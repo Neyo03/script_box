@@ -7,10 +7,14 @@ class TropheDao extends Dao{
     public function findTrophe($id_utilisateur, $limitation="", $code=""){
         $connexion = new \Database();
         $limit="";
+        $and="";
         if ($limitation) {
             $limit = "LIMIT $limitation";
         }
-        $req=$connexion->prepare("SELECT * FROM debloque INNER JOIN trophe using(code) WHERE id_utilisateur = $id_utilisateur AND code = $code ORDER BY code DESC $limit;");
+        if ($code) {
+            $and = "AND code = $code";
+        }
+        $req=$connexion->prepare("SELECT * FROM debloque INNER JOIN trophe using(code) WHERE id_utilisateur = $id_utilisateur $and ORDER BY code DESC $limit;");
         $req->execute();
         $result = $req->fetchAll();
         $allModel=[];
@@ -25,7 +29,6 @@ class TropheDao extends Dao{
     }
     public function addTrophe($count, $id, $code){
         $trophe= $this->findTrophe($id,"", $code);
-        var_dump($trophe);
         if ($trophe==false) {
             $sql="INSERT INTO `debloque` (id_utilisateur, code) VALUES (:id_utilisateur, :code)";
             $connexion = new Database();
