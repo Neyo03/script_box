@@ -58,7 +58,6 @@ class CommentaireDao extends Dao{
     public function findCommentaireByIdUtilisateur($id_utilisateur, $pagination){
 
         $table=$this->getTable();
-        $utilisateur = new UtilisateurDao();
         $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
         
@@ -74,11 +73,24 @@ class CommentaireDao extends Dao{
         }  
 
         return $allModel;
+    }
+    public function countCommentaire($id){
 
+            
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $where="";
+        if ($table=="commentaire" AND $id!="") {
+            $where = "WHERE id_utilisateur = $id";
+        }
+        $count="SELECT count(*) AS commentaire FROM $table $where";
+        $resultatCount= $connexion->query($count);
+        $countliste = $resultatCount->fetch()['commentaire'];
 
-
+        return $countliste;
     }
 
+    
 
 
 

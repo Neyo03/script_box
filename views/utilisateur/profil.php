@@ -3,6 +3,20 @@
     <div><a href="/script_box/utilisateur/trophe/<?=$_SESSION['idSession']?>">Trophées</a></div>
     <h4>Information Principal</h4>
     <div class="infoPrincipalCompte">
+        <h5>Dernier Trophées</h5>
+        <div class="blocLastAllTrophe">
+            <?php if(empty($listeTrophe)){
+
+                echo "Vide...";
+
+            };?>
+            <?php foreach ($listeTrophe as $trophe):?>
+                <div class="blocLastTrophe">
+                    <img src="../../views/img/trophe/<?= $trophe->getImage(); ?>" alt="">
+                    <span><?= $trophe->getNom(); ?></span>
+                </div>
+            <?php endforeach?>
+        </div>
         <h5>Pseudo</h5>
         <p><?= $infoUser->getPseudo();?></p>
         <img class="compteProfilPicture" src="/script_box/views/img/profil_picture/<?= $infoUser->getPicture();?>" alt="">

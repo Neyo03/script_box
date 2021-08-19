@@ -17,8 +17,28 @@ class Utilisateur{
     protected $biographie;
     
 
+    public function afficherNom($id_utilisateur){
+
+        $dao = new \Dao\TropheDao();
+        $listeTrophe = $dao->findTrophe($id_utilisateur);
+     
+        $model="";
+        foreach ($listeTrophe as $trophe) {
+            $model = $trophe;
+        }
+        return $model->getNom();
+    }
+    public function afficherImage($id_utilisateur){
+
+        $dao = new \Dao\TropheDao();
+        $listeTrophe = $dao->findTrophe($id_utilisateur);
+        $model="";
+        foreach ($listeTrophe as $trophe) {
+            $model = $trophe;
+        }
+        return $model->getImage();
+    }
     
- 
 
     /**
      * Get the value of email

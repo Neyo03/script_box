@@ -206,3 +206,58 @@ input.file {
 #blah1{
     z-index: 1;
 }
+
+.blocTrophe>img{
+    width: 70px;
+    transition: 0.3s;
+}
+.blocTrophe>img:hover{
+    width: 70px;
+    transform: rotate(5deg);
+   filter:drop-shadow(1px 1px 5px rgba(156, 156, 156, 0.3));
+}
+.blocTrophe{
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5vw;
+}
+.blocAllTrophe{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+.blocLastAllTrophe{
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items:flex-start;
+
+}
+.blocLastTrophe>img{
+
+    width: 50px;
+}
+.blocLastTrophe>span{
+
+    font-size: 12px;
+}
+
+.blocLastTrophe{
+width: 50%;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+
+
+
+}

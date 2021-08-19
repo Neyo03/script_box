@@ -1,10 +1,22 @@
 <div class="blocProfil">
     <div><a href="/script_box/utilisateur/questions/<?=$_SESSION['idSession']?>">Question posées</a></div>
     <div><a href="/script_box/utilisateur/trophe/<?=$_SESSION['idSession']?>">Trophées</a></div>
+
+
     <a href="/script_box/utilisateur/compte_edit"><button>Modifier profil</button></a>
     <h4>Information Principal</h4>
     <div class="infoPrincipalCompte">
-        
+        <h5>Dernier Trophées</h5>
+        <div class="blocLastAllTrophe">
+            
+            <?php foreach ($listeTrophe as $trophe):?>
+            
+                <div class="blocLastTrophe">
+                    <img src="../views/img/trophe/<?= $trophe->getImage(); ?>" alt="">
+                    <span><?= $trophe->getNom(); ?></span>
+                </div>
+            <?php endforeach?>
+        </div>
         <h5>Pseudo</h5>
         <p><?= $infoUser->getPseudo();?></p>
         <img class="compteProfilPicture" src="../../script_box/views/img/profil_picture/<?= $infoUser->getPicture();?>" alt="">

@@ -10,8 +10,10 @@ class UtilisateurController extends Controller{
     public function index(){
 
         $dao = new UtilisateurDao();
+        $daoTrophe = new \Dao\TropheDao();
+        $listeTrophe = $daoTrophe->findTrophe($_SESSION['idSession'], 3);
         $infoUser=  $dao->findById($_SESSION['idSession']);
-        $setting = compact(['infoUser']);
+        $setting = compact(['infoUser','listeTrophe']);
         $this->afficherVue('compte', $setting);
 
 
@@ -20,10 +22,12 @@ class UtilisateurController extends Controller{
         $this->index();
     }
     public function profil($settings){
-        if (!empty($settings)AND !is_numeric($settings)) {
+        if (!empty($settings)AND is_numeric($settings[0])) {
             $dao = new UtilisateurDao();
+            $daoTrophe = new \Dao\TropheDao();
             $infoUser=  $dao->findById($settings[0]);
-            $setting = compact(['infoUser']);
+            $listeTrophe = $daoTrophe->findTrophe($settings[0], 3);
+            $setting = compact(['infoUser','listeTrophe']);
             $this->afficherVue('profil',$setting);
         }
         else {
@@ -32,7 +36,7 @@ class UtilisateurController extends Controller{
         
     }
     public function questions($settings){
-        if (!empty($settings) AND !is_numeric($settings)) {
+        if (!empty($settings) AND is_numeric($settings[0])) {
             $controller = new CommentaireController();
             $dao = new \Dao\CommentaireDao();
             $pagination = $_POST['pagination'] ?? 1;
@@ -54,14 +58,16 @@ class UtilisateurController extends Controller{
 
     public function trophe($settings){
 
-        if (!empty($settings)AND !is_numeric($settings)) {
+        if (!empty($settings)AND is_numeric($settings[0])) {
 
             $dao = new \Dao\TropheDao();
             $listeTrophe = $dao->findTrophe($settings[0]);
-            var_dump($listeTrophe);
             $setting = compact(['listeTrophe']);
             $this->afficherVue('trophe',$setting);
 
+        }
+        else {
+            echo "Page Introuvable";
         }
 
 

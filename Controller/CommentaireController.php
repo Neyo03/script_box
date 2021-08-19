@@ -30,7 +30,7 @@ Use Dao\UtilisateurDao;
         public function showPost($settings){
             $dao = new CommentaireDao();
             $commentaire="";
-            if (!empty($settings)AND !is_numeric($settings)) {
+            if (!empty($settings) AND is_numeric($settings[0])) {
                 $commentaire = $dao->findById($settings[0]);
             }
             if($commentaire){
@@ -48,21 +48,59 @@ Use Dao\UtilisateurDao;
             }
         }
         public function ask(){
+            
             if (isset($_POST['titre'])) {
+                
                 $dao=new CommentaireDao;
+                $daoTrophe= new \Dao\TropheDao();
+                $countCommentaire = $dao->CountCommentaire($_SESSION['idSession']);
+                $verifCount=$this->verifTrophe($countCommentaire);
+                if($verifCount!=0){
+                    $addTrophe=$daoTrophe->addTrophe($verifCount, $_SESSION['idSession'], $verifCount);
+                }
                 $titre=htmlspecialchars($_POST['titre']);
                 $contenu=htmlspecialchars($_POST['contenu']);
                 $id_tag=htmlspecialchars($_POST['id_tag']);
                 $id_utilisateur=htmlspecialchars($_POST['id_utilisateur']);
                 if ($contenu != '' && $id_utilisateur != '' && $titre !='' && $id_tag!='') {
                     $dao->postAsk($titre,$contenu,$id_tag,$id_utilisateur);
-                    $this->refresh(0);
+                    // $this->refresh(0);
                 }
                 else{
                     echo"Veillez remplir tous les champs";
                 }
+
             }
             
+        }
+        public function verifTrophe($count){
+
+            if ($count>=1 AND $count<10) {
+                $count = 1;
+            }
+            elseif ($count>=10 AND $count<50) {
+                $count = 10;
+
+            }
+            elseif ($count>=50 AND $count<100) {
+                $count = 50;
+
+            }elseif ($count>=100 AND $count<200) {
+                $count = 100;
+
+            }elseif ($count>=200 AND $count<500) {
+                $count = 200;
+            }
+            elseif ($count>=500 AND $count<1000) {
+                $count = 500;
+
+            }elseif ($count>=1000) {
+                $count = 1000;
+
+            }
+
+            return $count;
+
         }
         // public function pagination(){
         //     $daoPage = new CommentaireDao();

@@ -16,7 +16,7 @@
                         <?= (isset($_SESSION['pseudoSession'])) ? '</form>' : '' ?>
                         <?= (isset($_SESSION['pseudoSession'])) ? '<form action="" method="post">' : '' ?>
                                 <button class="btn_like"  name="like" <?= (isset($_SESSION['pseudoSession'])) ? '' : 'onclick="openConnexion()"'?>>
-                                <?php if($reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse()) AND $reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse())['vote'] == 1){
+                                <?php if(isset($_SESSION['idSession']) AND $reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse()) AND $reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse())['vote'] == 1){
                                         echo '<img src="../../views/img/like.svg" alt="icon like">';}
                                         else{
                                         echo '<img src="../../views/img/like_blue.svg" alt="icon like">';}?>
@@ -26,7 +26,7 @@
                                 <input type="hidden" name="nb_dislike" value="<?=$reponse->getDislikeReponse()?>">
 
                         <?= (isset($_SESSION['pseudoSession'])) ? '</form>' : '' ?><?= (isset($_SESSION['pseudoSession'])) ? '<form action="" method="post">' : '' ?>
-                                <button class="btn_dislike" name="dislike" <?= (isset($_SESSION['pseudoSession'])) ? '' : 'onclick="openConnexion()"'?> onclick="this.enabled='false'"><?php if($reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse()) AND $reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse())['vote'] == -1){
+                                <button class="btn_dislike" name="dislike" <?= (isset($_SESSION['pseudoSession'])) ? '' : 'onclick="openConnexion()"'?> onclick="this.enabled='false'"><?php if(isset($_SESSION['idSession']) AND $reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse()) AND $reponse->afficherLike($_SESSION['idSession'], $reponse->getIdReponse())['vote'] == -1){
                                         echo '<img src="../../views/img/dislike_red.svg" alt="icon like">';}
                                         else{
                                         echo '<img src="../../views/img/dislike.svg" alt="icon like">';}?></button>
