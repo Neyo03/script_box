@@ -56,7 +56,7 @@ class CommentaireDao extends Dao{
 
 
     public function findCommentaireByIdUtilisateur($id_utilisateur, $pagination){
-
+        $utilisateur = new UtilisateurDao();
         $table=$this->getTable();
         $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
