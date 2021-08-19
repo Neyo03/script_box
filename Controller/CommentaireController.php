@@ -13,8 +13,7 @@ Use Dao\UtilisateurDao;
             $settingPage = compact(['pagination', 'maxPage']);
             $listeCommentaire = $dao->findAll($pagination);
             $setting = compact(['listeCommentaire']);
-            // var_dump($setting);
-            
+
             (isset($_POST['titre'])) ? $this->ask() : '';
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
 
@@ -31,7 +30,7 @@ Use Dao\UtilisateurDao;
         public function showPost($settings){
             $dao = new CommentaireDao();
             $commentaire="";
-            if (!empty($settings)) {
+            if (!empty($settings)AND !is_numeric($settings)) {
                 $commentaire = $dao->findById($settings[0]);
             }
             if($commentaire){

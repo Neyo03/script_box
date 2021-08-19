@@ -13,12 +13,11 @@ Use Dao\VoteDao;
             $controller = new CommentaireController();
             $dao = new ReponseDao();
             $pagination = $_POST['pagination'] ?? 1;
-
             $maxPage=$this->pagination($id);
             $listeReponse = $dao->findAllReponseByIdCommentaire($id, $pagination);
             $setting = compact(['listeReponse']);
             $settingPage = compact(['pagination', 'maxPage']);
-            if (isset($_POST['like'])) {
+            if (isset($_POST['like'])){
                 $dao->likeDao($_POST['id_reponse'], $_SESSION['idSession']);
                 $this->refresh(0);
             }
@@ -30,7 +29,6 @@ Use Dao\VoteDao;
             if ($maxPage>1) {
                 $controller->afficherVue('pagination', $settingPage);
             }
-            
         }
         
         public function answer($settings){

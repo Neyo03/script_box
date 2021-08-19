@@ -125,15 +125,18 @@ class Dao {
         }
         return $array;
     }
-    public function paginationDao($id_commentaire="",$search=""){
+    public function paginationDao($id="",$search=""){
         $table=$this->getTable();
         $connexion = new \Database();
         $where="";
         $like="";
         if ($table=="reponse") {
-            $where = "WHERE id_commentaire = $id_commentaire";
+            $where = "WHERE id_commentaire = $id";
         }
-        if ($search) {
+        if ($table=="commentaire" AND $id!="") {
+            $where = "INNER JOIN utilisateur using(id_utilisateur) WHERE id_utilisateur = $id";
+        }
+        if ($search && $search!="") {
             $like = "INNER JOIN utilisateur using(id_utilisateur) WHERE contenu OR titre LIKE '%$search%'";
         }
         $count="SELECT count(*) AS page FROM $table $where $like";

@@ -1,6 +1,6 @@
 <div class="blocProfil">
     <div><a href="/script_box/utilisateur/questions/<?=$infoUser->getIdUtilisateur()?>">Question posées</a></div>
-    <div><a href="">Trophées</a></div>
+    <div><a href="/script_box/utilisateur/trophe/<?=$_SESSION['idSession']?>">Trophées</a></div>
     <h4>Information Principal</h4>
     <div class="infoPrincipalCompte">
         <h5>Pseudo</h5>

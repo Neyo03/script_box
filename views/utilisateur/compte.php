@@ -1,6 +1,6 @@
 <div class="blocProfil">
     <div><a href="/script_box/utilisateur/questions/<?=$_SESSION['idSession']?>">Question posées</a></div>
-    <div><a href="">Trophées</a></div>
+    <div><a href="/script_box/utilisateur/trophe/<?=$_SESSION['idSession']?>">Trophées</a></div>
     <a href="/script_box/utilisateur/compte_edit"><button>Modifier profil</button></a>
     <h4>Information Principal</h4>
     <div class="infoPrincipalCompte">

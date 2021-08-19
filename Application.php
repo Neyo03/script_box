@@ -14,7 +14,6 @@
             $chemin = rtrim($chemin,"/");
 
             $partieUrl= explode("/",$chemin);
-            // var_dump($partieUrl);
             
             //On découpe L'url en plusieur partie  (La première partie sera le nom du controller, la deuxieme sera le nom de l'action (la méthode a appeler ))
             $nomController =(!empty($partieUrl[0])) ? "Controller\\".ucfirst($partieUrl[0])."Controller" : "Controller\AccueilController" ;

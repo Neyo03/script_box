@@ -102,6 +102,10 @@ class UtilisateurDao extends Dao{
 
         return $allModel;
 
+    }
+    public function findTrophe($id_utilisateur){
+
+        $req="SELECT * FROM debloque WHERE id_utilisateur = $id_utilisateur;";
 
 
     }

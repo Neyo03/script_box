@@ -20,7 +20,7 @@ class UtilisateurController extends Controller{
         $this->index();
     }
     public function profil($settings){
-        if (!empty($settings)) {
+        if (!empty($settings)AND !is_numeric($settings)) {
             $dao = new UtilisateurDao();
             $infoUser=  $dao->findById($settings[0]);
             $setting = compact(['infoUser']);
@@ -32,13 +32,12 @@ class UtilisateurController extends Controller{
         
     }
     public function questions($settings){
-        if (!empty($settings)) {
+        if (!empty($settings) AND !is_numeric($settings)) {
             $controller = new CommentaireController();
             $dao = new \Dao\CommentaireDao();
             $pagination = $_POST['pagination'] ?? 1;
-            $maxPage = $controller->pagination();
+            $maxPage = $controller->pagination($settings[0]);
             $settingPage = compact(['pagination', 'maxPage']);
-            
             $commentaireUser = $dao->findCommentaireByIdUtilisateur($settings[0], $pagination);
             $setting =compact(['commentaireUser']);
             if ($maxPage>1) {
@@ -50,7 +49,18 @@ class UtilisateurController extends Controller{
         else {
             echo"Page Introuvable";
         }
+
+    }
+
+    public function trophe($settings){
+
+        if (!empty($settings)AND !is_numeric($settings)) {
+
+
+            $this->afficherVue('trophe');
+
         
+        }
 
 
 
