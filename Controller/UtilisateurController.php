@@ -56,10 +56,12 @@ class UtilisateurController extends Controller{
 
         if (!empty($settings)AND !is_numeric($settings)) {
 
+            $dao = new \Dao\TropheDao();
+            $listeTrophe = $dao->findTrophe($settings[0]);
+            var_dump($listeTrophe);
+            $setting = compact(['listeTrophe']);
+            $this->afficherVue('trophe',$setting);
 
-            $this->afficherVue('trophe');
-
-        
         }
 
 
