@@ -20,9 +20,9 @@
         if ($pagination>1) {
             ?>
                 <form action="" method="post">
-                        <input type="hidden" name="pagination" value="<?=1?>">
-                        <button type="submit"><<</button>
-                    </form>
+                    <input type="hidden" name="pagination" value="<?=1?>">
+                    <button type="submit"><<</button>
+                </form>
             <?php
         }
         $page=1;

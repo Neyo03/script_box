@@ -27,7 +27,7 @@ Use Dao\VoteDao;
                 $this->refresh(0);
             }
             $this->afficherVue('anwser', $setting);
-            if ($maxPage>0) {
+            if ($maxPage>1) {
                 $controller->afficherVue('pagination', $settingPage);
             }
             

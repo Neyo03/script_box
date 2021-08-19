@@ -8,30 +8,33 @@ namespace Controller;
             $this->afficherVue('accueil');
         }
         public function search(){
-            if (isset($_POST['search']) && $_POST['search']!="") {
-                $dao = new \Dao\AccueilDao();
-                $controller = new CommentaireController();
-                    $pagination = $_POST['pagination'] ?? 1;
-                    $maxPage=$controller->pagination();
-                    $settingPage = compact(['pagination', 'maxPage']);
-                    $_SESSION['searchSession'] = $_POST['search'];
-                   
+            $dao = new \Dao\AccueilDao();
+            $controller = new CommentaireController();
+            
+            if (isset($_POST['search']) && $_POST['search']!="" ) {
+                $_SESSION['searchSession'] = $_POST['search'];
+            }
+            if (isset( $_SESSION['searchSession'])) {
+                
+                $pagination = $_POST['pagination'] ?? 1;
                 $listeSearch = $dao->findSearch($_SESSION['searchSession'], $pagination);
+                $maxPage=$controller->pagination("",$_SESSION['searchSession']);
+                $settingPage = compact(['pagination', 'maxPage']);
                 if ($listeSearch) {
                     $setting = compact(['listeSearch']);
-                    $this->afficherVue('search', $setting);
-                    if ($maxPage>0) {
+                    if ($maxPage>1) {
                         $controller->afficherVue('pagination', $settingPage);
                     }
+                    $this->afficherVue('search', $setting);
                     
                 }
                 else {
-                    echo"0 résultat pour ". $_POST['search'] ."";
+                    echo"0 résultat pour ". $_SESSION['searchSession'] ."";
                 }
             }
-            else {
-                $this->afficherVue('404');
-            }
+            // else {
+            //     $this->afficherVue('404');
+            // }
 
 
 

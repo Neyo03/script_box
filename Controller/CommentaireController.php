@@ -19,7 +19,9 @@ Use Dao\UtilisateurDao;
             (!isset($_SESSION['pseudoSession'])) ? $this->notConnect() : '';
 
             $this->afficherVue('forum', $setting);
-            $this->afficherVue("pagination", $settingPage);
+            if ($maxPage>1) {
+                $this->afficherVue("pagination", $settingPage);
+            }
             $this->afficherVue('askQuestion', $setting);
             
         }

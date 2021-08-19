@@ -20,17 +20,37 @@ class UtilisateurController extends Controller{
         $this->index();
     }
     public function profil($settings){
-
-        $dao = new UtilisateurDao();
-        $infoUser=  $dao->findById($settings[0]);
-        $setting = compact(['infoUser']);
-        $this->afficherVue('profil',$setting);
+        if (!empty($settings)) {
+            $dao = new UtilisateurDao();
+            $infoUser=  $dao->findById($settings[0]);
+            $setting = compact(['infoUser']);
+            $this->afficherVue('profil',$setting);
+        }
+        else {
+            echo"Page Introuvable";
+        }
+        
     }
     public function questions($settings){
-        $dao = new \Dao\CommentaireDao();
-        $commentaireUser = $dao->findCommentaireByIdUtilisateur($settings[0]);
-        $setting =compact(['commentaireUser']);
-        $this->afficherVue('question',$setting);
+        if (!empty($settings)) {
+            $controller = new CommentaireController();
+            $dao = new \Dao\CommentaireDao();
+            $pagination = $_POST['pagination'] ?? 1;
+            $maxPage = $controller->pagination();
+            $settingPage = compact(['pagination', 'maxPage']);
+            
+            $commentaireUser = $dao->findCommentaireByIdUtilisateur($settings[0], $pagination);
+            $setting =compact(['commentaireUser']);
+            if ($maxPage>1) {
+                $controller->afficherVue("pagination", $settingPage);
+            }
+            $this->afficherVue('question',$setting);
+            
+        }
+        else {
+            echo"Page Introuvable";
+        }
+        
 
 
 

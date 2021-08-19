@@ -55,14 +55,14 @@ class CommentaireDao extends Dao{
     }
 
 
-    public function findCommentaireByIdUtilisateur($id_utilisateur){
+    public function findCommentaireByIdUtilisateur($id_utilisateur, $pagination){
 
         $table=$this->getTable();
         $utilisateur = new UtilisateurDao();
         $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
         
-        $req = $connexion->prepare("SELECT * FROM $table WHERE id_utilisateur = $id_utilisateur");
+        $req = $connexion->prepare("SELECT * FROM $table WHERE id_utilisateur = $id_utilisateur ORDER BY id_commentaire DESC LIMIT ". ($pagination-1)*10 .",10;");
         $req->execute();
         $result = $req->fetchAll();
         $model_class_name = "Model\\".ucfirst($table);

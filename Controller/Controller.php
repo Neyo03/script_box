@@ -47,10 +47,10 @@ class Controller {
 
     }
     
-    public function pagination($id_commentaire=""){
+    public function pagination($id_commentaire="",$search=""){
         $controller= $this->getController();
         $dao = new $controller;
-        return $dao->paginationDao($id_commentaire);
+        return $dao->paginationDao($id_commentaire,$search);
     }
     public function getController(){
         $controller = substr(get_class($this),11,-10);
