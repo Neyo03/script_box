@@ -32,7 +32,7 @@ class UtilisateurDao extends Dao{
             ":id_utilisateur"=>NULL,
             ":admin"=>0,
             ":picture"=>"user.png",
-            ":biographie"=>NULL
+            ":biographie"=>""
             
         ]);
     }
@@ -86,7 +86,6 @@ class UtilisateurDao extends Dao{
 
         $table=$this->getTable();
         $utilisateur = new UtilisateurDao();
-        $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
         
         $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN commentaire USING(id_utilisateur) WHERE id_commentaire = $id_commentaire");
@@ -108,7 +107,6 @@ class UtilisateurDao extends Dao{
 
         $table=$this->getTable();
         $utilisateur = new UtilisateurDao();
-        $tableUtilisateur = $utilisateur->getTable();
         $connexion = new \Database();
         
         $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN reponse USING(id_utilisateur) WHERE id_reponse = $id_reponse");
@@ -124,9 +122,28 @@ class UtilisateurDao extends Dao{
 
         return $allModel;
 
+    }
+    public function findPseudoDestinataireByIdUtilisateur($id_utilisateur){
 
+        $table=$this->getTable();
+        $utilisateur = new UtilisateurDao();
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT * FROM ".$table." WHERE id_utilisateur = $id_utilisateur ");
+        $req->execute();
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+        $allModel=[];
+
+        foreach ($result as $ligneResultat) {
+            $model = $this->arrayToModel($ligneResultat);
+            $allModel[]= $model;
+        }  
+
+        return $allModel;
 
     }
+    
 
     public function updateUtilisateurCompte($pseudo,$biographie,$prenom,$nom,$picture,$id_utilisateur){
 

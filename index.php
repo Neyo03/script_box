@@ -39,6 +39,8 @@ Autoloader::register();
                             <div>
                                 <a  href="/script_box/utilisateur/compte"><img class="profilPicture" src="../../../script_box/views/img/profil_picture/<?=$_SESSION['pictureSession']?>" alt="">Mon compte
                                 </a>
+                                <a  href="/script_box/utilisateur/message">Message
+                                </a>
                             </div> 
                             <a class="" href='/script_box/utilisateur/deconnexion'>Deconnexion</a> 
                             <?php 

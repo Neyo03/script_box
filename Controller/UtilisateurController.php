@@ -9,12 +9,19 @@ class UtilisateurController extends Controller{
 
     public function index(){
 
-        $dao = new UtilisateurDao();
-        $daoTrophe = new \Dao\TropheDao();
-        $listeTrophe = $daoTrophe->findTrophe($_SESSION['idSession'], 3);
-        $infoUser=  $dao->findById($_SESSION['idSession']);
-        $setting = compact(['infoUser','listeTrophe']);
-        $this->afficherVue('compte', $setting);
+        if (isset($_SESSION['idSession'])) {
+            $dao = new UtilisateurDao();
+            $daoTrophe = new \Dao\TropheDao();
+            $listeTrophe = $daoTrophe->findTrophe($_SESSION['idSession'], 3);
+            $infoUser=  $dao->findById($_SESSION['idSession']);
+            $setting = compact(['infoUser','listeTrophe']);
+            $this->afficherVue('compte', $setting);
+        }
+        else {
+            $this->redirect('404');
+
+        }
+        
 
 
     }
@@ -57,7 +64,6 @@ class UtilisateurController extends Controller{
     }
 
     public function trophe($settings){
-
         if (!empty($settings)AND is_numeric($settings[0])) {
 
             $dao = new \Dao\TropheDao();
@@ -100,10 +106,65 @@ class UtilisateurController extends Controller{
                 echo '<div>Vous devez remplir tous les champs</div>';
             }
         }
-        $infoUser=  $dao->findById($_SESSION['idSession']);
-        $setting = compact(['infoUser']);
-        (!isset($_SESSION['pseudoSession'])) ? $this->redirect('404'): $this->afficherVue('compte_edit',$setting);
+        if (isset($_SESSION['pseudoSession'])) {
+            $infoUser=  $dao->findById($_SESSION['idSession']);
+            $setting = compact(['infoUser']);
+            $this->afficherVue('compte_edit',$setting);
+        }
+        else {
+             $this->redirect('404');
+        }
        
+
+
+    }
+    public function message(){
+
+        if(isset($_SESSION['pseudoSession'])){
+            $dao = new \Dao\MessagerieDao();
+            $listeMessage = $dao->findDestinataireByIdUtilisateur($_SESSION['idSession']);
+            $setting = compact(['listeMessage']);
+            $this->afficherVue('message',$setting); 
+        }else {
+            $this->redirect('404');
+        } 
+        
+
+
+    }
+    public function private_message($settings){
+
+        if (!empty($settings) AND is_numeric($settings[0])) {
+        
+            if(isset($_SESSION['pseudoSession'])  ){
+                $dao = new \Dao\MessagerieDao();
+                $listeMessageDestinataire = $dao->findMessageDestinataire($_SESSION['idSession'], $settings[0]);
+                $destinataire = $dao->findPseudoDestinataire($settings[0]);
+                $setting = compact(['listeMessageDestinataire','destinataire']);
+                $this->afficherVue('private_message',$setting); 
+                $this->repondreMessage($settings[0]);
+                    
+ 
+            }else {
+                $this->redirect('404');
+            } 
+        }
+        else {
+            echo"Page Introuvable";
+        }
+    
+    }
+
+    public function repondreMessage($id){
+
+        if (isset($_POST['reponseMessage']) AND $_POST['reponseMessage']!="") {
+            $dao= new \Dao\MessagerieDao();
+            $dao->repondreMessage($_POST['reponseMessage'], $_SESSION['idSession'], $id);
+            
+        }
+        $this->afficherVue('repondreMessage');
+
+
 
 
     }
@@ -137,6 +198,9 @@ class UtilisateurController extends Controller{
                     
                     $this->redirect('commentaire');
                     
+                }
+                else {
+                    echo"Mot de passe ou Pseudo incorrecte";
                 }
             }
             else {

@@ -257,6 +257,92 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 
+}
+
+.blocUtilisateur{
+
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 5px;
+
+    margin-bottom: 5px;
+    height: auto;
+    word-break: break-all;
+}
+.blocDestinataire{
+
+    width: 90%;
+    padding: 5px;
+    margin-bottom: 8px;
+    word-break: break-all;
+
+}
+.profilPictureMsg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+
+.profilMessage{
+    width: 90%;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px #333 solid;
+    background-color: white;
+
+}
+
+.blocRepondreMessage{
+    width: 90%;
+    position: fixed;
+    bottom: 0;
+    border-radius: 30px;
+    border:  1px solid #333;
+    margin-bottom: 10px;
+    background-color: white;
+    
+
+}
+.blocRepondreMessage>form>textarea{
+    width: 100%;
+    border: transparent;
+    outline: transparent;
+    padding:  10px;
+    border-radius: 30px;
+    background-color: transparent;
+    
+
+    
+}
+.blocRepondreMessage>form>button{
+    background-color: transparent;
+    border: transparent;
+    outline: transparent;
+    cursor: pointer;
+
+ 
+}
+.blocRepondreMessage>form>button:hover{
+    color: rgb(29, 91, 150);
+ 
+}
+.blocRepondreMessage>form{
+    display: flex;
+    height:50px ;
+
+}
+
+.blocPrivateMessage{
+    width: 90%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+    margin-bottom: 60px;
 
 
 
