@@ -36,6 +36,36 @@ class AccueilDao extends Dao{
 
 
     }
+    public function findSearchUtilisateur($search,$pagination){
+
+        $commentaire = new UtilisateurDao(); 
+        $table=$commentaire->getTable();
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT * FROM utilisateur WHERE pseudo LIKE :pseudo ORDER BY id_utilisateur DESC LIMIT ". ($pagination-1)*10 .",10;");
+        $req->execute([
+
+            ":pseudo"=>'%'. $search .'%',
+
+        ]);
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+
+        $allModel=[];
+
+
+        foreach ($result as $ligneResultat) {
+
+            $model = $commentaire->arrayToModel($ligneResultat);
+            // On ajoute les produit à la liste des produits 
+            $allModel[]= $model;
+
+        }
+        return $allModel;
+
+
+
+    }
 
 
 

@@ -18,10 +18,12 @@ namespace Controller;
                 
                 $pagination = $_POST['pagination'] ?? 1;
                 $listeSearch = $dao->findSearch($_SESSION['searchSession'], $pagination);
+                $listeSearchUtilisateur = $dao->findSearchUtilisateur($_SESSION['searchSession'], $pagination);
+                var_dump($listeSearchUtilisateur);
                 $maxPage=$controller->pagination("",$_SESSION['searchSession']);
                 $settingPage = compact(['pagination', 'maxPage']);
-                if ($listeSearch) {
-                    $setting = compact(['listeSearch']);
+                if ($listeSearch OR $listeSearchUtilisateur) {
+                    $setting = compact(['listeSearch','listeSearchUtilisateur']);
                     if ($maxPage>1) {
                         $controller->afficherVue('pagination', $settingPage);
                     }

@@ -134,7 +134,7 @@ class UtilisateurController extends Controller{
     }
     public function private_message($settings){
 
-        if (!empty($settings) AND is_numeric($settings[0])) {
+        if (!empty($settings) AND is_numeric($settings[0]) AND $settings[0]!=$_SESSION['idSession']) {
         
             if(isset($_SESSION['pseudoSession'])  ){
                 $dao = new \Dao\MessagerieDao();
@@ -143,6 +143,9 @@ class UtilisateurController extends Controller{
                 $setting = compact(['listeMessageDestinataire','destinataire']);
                 $this->afficherVue('private_message',$setting); 
                 $this->repondreMessage($settings[0]);
+                if (isset($_POST['reponseMessage'])) {
+                    $this->refresh(0);
+                }
                     
  
             }else {
