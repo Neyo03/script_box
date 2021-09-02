@@ -12,13 +12,11 @@
 
             //On enlève le / à la fin de l'URL
             $chemin = rtrim($chemin,"/");
-
             $partieUrl= explode("/",$chemin);
             
             //On découpe L'url en plusieur partie  (La première partie sera le nom du controller, la deuxieme sera le nom de l'action (la méthode a appeler ))
             $nomController =(!empty($partieUrl[0])) ? "Controller\\".ucfirst($partieUrl[0])."Controller" : "Controller\AccueilController" ;
             $nomAction=(!empty($partieUrl[1])) ? $partieUrl[1] : "index";
-
             if (!method_exists($nomController, $nomAction)) {
                    $nomController= "Controller\AccueilController";
                    $nomAction="notFound";
@@ -33,7 +31,16 @@
             if (!isset($_SESSION['lastPage'])) {
                 $_SESSION['lastPage']=[];
             }
-
+            $chemin = $_GET['p'];
+            $folder = "/script_box/";
+            $url = $folder.=$chemin;
+            if (!in_array($url,$_SESSION['lastPage'])) {
+                $_SESSION['lastPage'][]=$url;
+            }
+            var_dump($_SESSION['lastPage']);
+            
+        
+            
 
 
         }

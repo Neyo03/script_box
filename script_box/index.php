@@ -69,6 +69,7 @@ Autoloader::register();
         <a href=""></a>
         <?php
             Application::demarrer();
+            Application::lastPage();
         ?>
        
     </div>
