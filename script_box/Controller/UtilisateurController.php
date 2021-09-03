@@ -169,9 +169,8 @@ class UtilisateurController extends Controller{
             $dao = new \Dao\ConversationDao();
             $daoParticipant= new \Dao\ParticipantDao();
             $conversation =$dao->verifConversationExist($settings[0]);
-            var_dump($conversation);
             if ($conversation) {
-                header("Location: /script_box/utilisateur/private_conversation/". $conversation['id_conversation']."");
+                $this->redirect('utilisateur/private_conversation/'. $conversation['id_conversation'].'');
             }
             else {
                 $id_conversation = $settings[0] * $_SESSION['idSession'] ;
@@ -240,7 +239,6 @@ class UtilisateurController extends Controller{
                     if ($utilisateur->getAdmin()==true) {
                         $_SESSION['adminSession'] =$utilisateur->getAdmin();;
                     }
-                    
                     $this->redirect('commentaire');
                     
                 }
@@ -256,11 +254,8 @@ class UtilisateurController extends Controller{
 
     }
     public function deconnexion(){
-
         session_destroy();
         $this->redirect('accueil');
-        
-
     }
 
     public function inscription(){
@@ -307,8 +302,8 @@ class UtilisateurController extends Controller{
                             
                         } 
                         echo"Vous vous êtes bien inscrit";
-                    //    $this->refresh(1);
-                    //    $this->redirect('accueil');
+                       $this->refresh(1);
+                       $this->redirect('accueil');
                     
                         
                     }

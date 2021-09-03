@@ -66,10 +66,19 @@ Autoloader::register();
     </nav>
     </header>
     <div class="container">
-        <a href=""></a>
+    <form>
+        <input type = "button" value = "Retour"  onclick = "history.go(-1)">
+    </form> 
+        <?php
+            
+            
+            
+        ?>
+           
         <?php
             Application::demarrer();
-            Application::lastPage();
+            
+            
         ?>
        
     </div>

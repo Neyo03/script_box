@@ -26,25 +26,24 @@
             $controller->$nomAction($settings);
             
         }
-        public static function lastPage(){
+        // public static function lastPage(){
 
-            if (!isset($_SESSION['lastPage'])) {
-                $_SESSION['lastPage']=[];
-            }
-            $chemin = $_GET['p'];
-            $folder = "/script_box/";
-            $url = $folder.=$chemin;
-            if (!in_array($url,$_SESSION['lastPage'])) {
-                $_SESSION['lastPage'][]=$url;
-            }
-            var_dump($_SESSION['lastPage']);
+        //     if (!isset($_SESSION['lastPage'])) {
+        //         $_SESSION['lastPage']=[""];
+        //     }
+        //     $chemin = $_GET['p'];
+        //     $folder = "/script_box/";
+        //     $url = $folder.=$chemin;
+        //     if (!in_array($url,$_SESSION['lastPage']) ) {
+        //         if (count($_SESSION['lastPage'])!=6) {
+        //             $_SESSION['lastPage'][]=$url;
+        //         }
+        //         else {
+        //             $_SESSION['lastPage'][6]=$url;
+        //         }
+        //     }
             
-        
-            
-
-
-        }
-
+        // }
 
 
     }
