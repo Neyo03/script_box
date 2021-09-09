@@ -15,10 +15,9 @@ Autoloader::register();
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="../../js/formulaire.js"></script>
-    <script src="../../js/likeDislike.js"></script>
-    <script src="../../js/openConnexion.js"></script>
-    <script src="../../js/afficheImg.js"></script>
+    <script src="/script_box/js/openConnexion.js"></script>
+    <script src="/script_box/js/afficherProfil.js"></script>
+
     
 
     <title>Script_box / <?= $_GET['p'] ?></title>
@@ -32,37 +31,54 @@ Autoloader::register();
                     <input type="text" name="search" value=" <?= (isset($_POST['search'])) ? $_POST['search'] :''; ?>"  placeholder="Search">
                     <button class="" type="submit"><img src="" alt=""></button>
                 </form>
-                <div>
+                <a class="" href="/script_box/commentaire/forum">Forum</a> 
+                <div class="bloc-profil">
                     <?php 
                         if(isset($_SESSION['pseudoSession'])){  
                         ?>
-                            <div>
-                                <a  href="/script_box/utilisateur/compte"><img class="profilPicture" src="../../../script_box/views/img/profil_picture/<?=$_SESSION['pictureSession']?>" alt="">Mon compte
-                                </a>
-                                <a  href="/script_box/utilisateur/message">Message
-                                </a>
-                            </div> 
-                            <a class="" href='/script_box/utilisateur/deconnexion'>Deconnexion</a> 
+                            <a  href="/script_box/utilisateur/conversation"><img class="paperPlaneMessage"src="/script_box/views/img/paper-plane.png" alt="">
+                            </a>
+                            <div class="menu-deroulant-profil">
+                                <img id="" class="profilPicture" onclick="openProfil()" src="/script_box/views/img/profil_picture/<?=$_SESSION['pictureSession']?>" alt="">
+                                <div id="contenu-menu-deroulant" style="display: none" class="contenu-menu-deroulant">
+                                    <a  href="/script_box/utilisateur/compte">Profil</a>
+                                    <a class="" href='/script_box/utilisateur/deconnexion'>Deconnexion</a> 
+                                </div> 
+                            </div>
+                            
+                        
                             <?php 
                             }else{
                             ?> 
+                            
                             <div>
-                                <a  href="/script_box/utilisateur/connexion"><img class="profilPicture" src="../../../script_box/views/img/profil_picture/user.png" alt="">Mon compte
+                                <a class="" href='/script_box/utilisateur/connexion'>Connexion</a> <a class="" href='/script_box/utilisateur/inscription'>Inscription</a>
+                                <a  href="/script_box/utilisateur/connexion">Mon compte<img class="profilPicture" src="../../../script_box/views/img/profil_picture/user.png" alt="">
                                 </a>
                             </div> 
-                            <a class="" href='/script_box/utilisateur/connexion'>Connexion</a> <a class="" href='/script_box/utilisateur/inscription'>Inscription</a>
+                            
                     <?php
                         } 
                     ?>
-                    <a class="" href="/script_box/commentaire/forum">Forum</a> 
+                    
                 </div>
         </div>
     </nav>
     </header>
     <div class="container">
+    <form>
+        <input type = "button" value = "Retour"  onclick = "history.go(-1)">
+    </form> 
         <?php
-        Application::demarrer();
-
+            
+            
+            
+        ?>
+           
+        <?php
+            Application::demarrer();
+            
+            
         ?>
        
     </div>

@@ -81,25 +81,35 @@ class UtilisateurController extends Controller{
     }
     public function compte_edit(){
         $dao = new UtilisateurDao();
-        if (isset($_POST['pseudo']) OR isset($_FILES['picture']['name']) OR isset($_POST['biographie']) OR isset($_POST['prenom']) OR isset($_POST['nom']) ) {
-            if ($_POST['pseudo']!="" OR $_FILES['picture']['name']!="" OR $_POST['biographie']!="" OR $_POST['prenom']!="" OR
+        if (isset($_POST['pseudo']) OR isset($_FILES['picture']) OR isset($_POST['biographie']) OR isset($_POST['prenom']) OR isset($_POST['nom']) ) {
+            if ($_POST['pseudo']!="" OR $_FILES['picture']["name"]!="" OR $_POST['biographie']!="" OR $_POST['prenom']!="" OR
             $_POST['nom']!="" ) {
                 $pseudo = htmlspecialchars($_POST['pseudo']);
                 $biographie = htmlspecialchars($_POST['biographie']);
                 $nom = htmlspecialchars($_POST['nom']);
                 $prenom = htmlspecialchars($_POST['prenom']);
-                $picture =$_FILES['picture']['name'];
+                $picture =$_FILES['picture']["name"];
+                $pictureSize = filesize($_FILES['picture']["tmp_name"]);
+    
+
+               
+
+                if ($picture!="" AND $pictureSize<=2000000 ) {
                 
 
-                $update = $dao->updateUtilisateurCompte($pseudo,$biographie,$prenom,$nom,$picture,$_SESSION['idSession']);
-                if ($update) {
-                    echo "Une erreur est survenue";
-                    
+                    $update = $dao->updateUtilisateurCompte($pseudo,$biographie,$prenom,$nom,$picture,$_SESSION['idSession']);
+                    if ($update) {
+                        echo "Une erreur est survenue";
+                        
+                    }
+                    else {
+                        echo "Votre Compte a bien été modifié";
+                        $_SESSION['pictureSession'] = $picture;
+                        $this->refresh(0);
+                    }
                 }
                 else {
-                    echo "Votre Compte a bien été modifié";
-                    $_SESSION['pictureSession'] = $picture;
-                    $this->refresh(0);
+                    echo"image invalide";
                 }
             }
             else {
@@ -118,52 +128,83 @@ class UtilisateurController extends Controller{
 
 
     }
-    public function message(){
+    public function conversation(){
 
-        if(isset($_SESSION['pseudoSession'])){
-            $dao = new \Dao\MessagerieDao();
-            $listeMessage = $dao->findDestinataireByIdUtilisateur($_SESSION['idSession']);
-            $setting = compact(['listeMessage']);
-            $this->afficherVue('message',$setting); 
-        }else {
-            $this->redirect('404');
-        } 
-        
+        $dao = new \Dao\ConversationDao();
+        $listeConversation = $dao->findConversationByIdUtilisateur($_SESSION['idSession']);
+        $setting = compact(['listeConversation']);
+        $this->afficherVue('conversation',$setting);
+
+    }
+    public function private_conversation($settings){
+        $daoParticipant = new \Dao\ParticipantDao();
+        if (!empty($settings) AND is_numeric($settings[0]) AND $daoParticipant->utilisateurExistInConversation($settings[0], $_SESSION['idSession']) ) {
+
+            $dao = new \Dao\MessageDao();
+            $daoUtilisateur = new \Dao\UtilisateurDao();
+            $daoConversation = new \Dao\ConversationDao();
+
+            $conversation = $daoConversation->findConversationByIdConversation($settings[0]);
+            $listeMessage=$dao->findMessageByIdConversation($settings[0]);
+            $listeUtilisateurConversation=$daoUtilisateur->findPseudoByIdConversation($settings[0]);
+
+            $setting = compact(['listeMessage','listeUtilisateurConversation','conversation']);
+            if (isset($_POST['reponseMessage'])) {
+                $this->refresh(0);
+            }
+            $this->afficherVue('private_conversation', $setting);
+            $this->repondreMessage($settings[0]);
+        }
+        else {
+            echo"Conversation introuvable";
+        }
+
 
 
     }
     public function private_message($settings){
+        $daoUtilisateur = new \Dao\UtilisateurDao();
+        if (!empty($settings) AND is_numeric($settings[0]) AND $daoUtilisateur->utilisateurExist($settings[0]) ) {
 
-        if (!empty($settings) AND is_numeric($settings[0]) AND $settings[0]!=$_SESSION['idSession']) {
-        
-            if(isset($_SESSION['pseudoSession'])  ){
-                $dao = new \Dao\MessagerieDao();
-                $listeMessageDestinataire = $dao->findMessageDestinataire($_SESSION['idSession'], $settings[0]);
-                $destinataire = $dao->findPseudoDestinataire($settings[0]);
-                $setting = compact(['listeMessageDestinataire','destinataire']);
-                $this->afficherVue('private_message',$setting); 
-                $this->repondreMessage($settings[0]);
-                if (isset($_POST['reponseMessage'])) {
-                    $this->refresh(0);
+            $dao = new \Dao\ConversationDao();
+            $daoParticipant= new \Dao\ParticipantDao();
+            $conversation =$dao->verifConversationExist($settings[0]);
+            if ($conversation) {
+                $this->redirect('utilisateur/private_conversation/'. $conversation['id_conversation'].'');
+            }
+            else {
+                $id_conversation = $settings[0] * $_SESSION['idSession'] ;
+                $conversationDouble = $dao->verifyDoubleConversation($id_conversation);
+                $count=0;
+                if ($conversationDouble) {
+                    while ($conversationDouble) {  
+                        $id_conversation +=1;
+                        $conversationDouble = $dao->verifyDoubleConversation($id_conversation);
+                    }
                 }
+                    $create = $dao->createConversation($id_conversation);
+                    $listeParticipants = [$settings[0], $_SESSION['idSession']];
+                    $daoParticipant->addParticipant($listeParticipants,$id_conversation);
+                    header("Location: /script_box/utilisateur/private_conversation/".$id_conversation."");
                     
- 
-            }else {
-                $this->redirect('404');
-            } 
+                
+            }
         }
         else {
-            echo"Page Introuvable";
+            echo"utilisateur introuvable";
         }
-    
+
+
+
+
     }
 
-    public function repondreMessage($id){
+    public function repondreMessage($id_conversation){
 
         if (isset($_POST['reponseMessage']) AND $_POST['reponseMessage']!="") {
-            $dao= new \Dao\MessagerieDao();
-            $dao->repondreMessage($_POST['reponseMessage'], $_SESSION['idSession'], $id);
-            
+            $dao= new \Dao\MessageDao();
+            $dao->envoyerMessage($_POST['reponseMessage'], $_SESSION['idSession'], $id_conversation); 
+            $this->refresh(0);
         }
         $this->afficherVue('repondreMessage');
 
@@ -198,7 +239,6 @@ class UtilisateurController extends Controller{
                     if ($utilisateur->getAdmin()==true) {
                         $_SESSION['adminSession'] =$utilisateur->getAdmin();;
                     }
-                    
                     $this->redirect('commentaire');
                     
                 }
@@ -214,11 +254,8 @@ class UtilisateurController extends Controller{
 
     }
     public function deconnexion(){
-
         session_destroy();
         $this->redirect('accueil');
-        
-
     }
 
     public function inscription(){
@@ -265,8 +302,8 @@ class UtilisateurController extends Controller{
                             
                         } 
                         echo"Vous vous êtes bien inscrit";
-                    //    $this->refresh(1);
-                    //    $this->redirect('accueil');
+                       $this->refresh(1);
+                       $this->redirect('accueil');
                     
                         
                     }

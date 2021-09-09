@@ -85,7 +85,7 @@ class UtilisateurDao extends Dao{
     public function findPseudoByIdCommentaire($id_commentaire){
 
         $table=$this->getTable();
-        $utilisateur = new UtilisateurDao();
+
         $connexion = new \Database();
         
         $req = $connexion->prepare("SELECT * FROM ".$table." LEFT JOIN commentaire USING(id_utilisateur) WHERE id_commentaire = $id_commentaire");
@@ -106,7 +106,7 @@ class UtilisateurDao extends Dao{
     public function findPseudoByIdReponse($id_reponse){
 
         $table=$this->getTable();
-        $utilisateur = new UtilisateurDao();
+
         $connexion = new \Database();
         
         $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN reponse USING(id_utilisateur) WHERE id_reponse = $id_reponse");
@@ -126,7 +126,6 @@ class UtilisateurDao extends Dao{
     public function findPseudoDestinataireByIdUtilisateur($id_utilisateur){
 
         $table=$this->getTable();
-        $utilisateur = new UtilisateurDao();
         $connexion = new \Database();
         
         $req = $connexion->prepare("SELECT * FROM ".$table." WHERE id_utilisateur = $id_utilisateur ");
@@ -162,6 +161,59 @@ class UtilisateurDao extends Dao{
         
 
     }
+    public function findPseudoByIdMessage($id_message){
+
+        $table=$this->getTable();
+
+        $connexion = new \Database();
+        
+        $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN message USING(id_utilisateur) WHERE id_message = ?");
+        $req->execute([$id_message]);
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+        $allModel=[];
+
+        foreach ($result as $ligneResultat) {
+            $model = $this->arrayToModel($ligneResultat);
+            $allModel[]= $model;
+        }  
+
+        return $allModel;
+
+    }
+    public function findPseudoByIdConversation($id_conversation, $id_utilisateur=""){
+
+        $table=$this->getTable();
+        $connexion = new \Database();
+        if ($id_utilisateur!="") {
+            $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN participant USING(id_utilisateur) WHERE id_conversation = ? AND id_utilisateur != ?");
+            $req->execute([$id_conversation, $id_utilisateur]);
+        }
+        else {
+            $req = $connexion->prepare("SELECT * FROM ".$table." INNER JOIN participant USING(id_utilisateur) WHERE id_conversation = ?");
+            $req->execute([$id_conversation]);
+        }
+        
+        $result = $req->fetchAll();
+        $model_class_name = "Model\\".ucfirst($table);
+        $allModel=[];
+        foreach ($result as $ligneResultat) {
+            $model = $this->arrayToModel($ligneResultat);
+            $allModel[]= $model;
+        }  
+        return $allModel;
+
+    }
+    public function utilisateurExist($id_utilisateur){
+        $table=$this->getTable();
+        $connexion = new \Database();
+        $req = $connexion->prepare("SELECT * FROM ".$table." WHERE id_utilisateur =?");
+        $req->execute([$id_utilisateur]);
+        $result = $req->fetch();
+        return $result;
+    }
+
+    
     
 
     

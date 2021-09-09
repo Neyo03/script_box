@@ -25,10 +25,7 @@ Use Dao\VoteDao;
                 $dao->dislikeDao($_POST['id_reponse'], $_SESSION['idSession']);
                 $this->refresh(0);
             }
-            if (isset($_POST['contenu'])) {
-                $this->refresh(0);
-            }
-            $this->afficherVue('anwser', $setting); 
+            $this->afficherVue('anwser', $setting);
             if ($maxPage>1) {
                 $controller->afficherVue('pagination', $settingPage);
             }
@@ -37,7 +34,7 @@ Use Dao\VoteDao;
         public function answer($settings){
             
             if (isset($_POST['contenu'])){
-
+                
                 $dao= new ReponseDao;
                 $contenu= htmlspecialchars($_POST['contenu']);
                 $id_utilisateur = htmlspecialchars($_POST['id_utilisateur']);

@@ -16,12 +16,48 @@
     border-radius: 3px;
     position: absolute;
 }
+
+.primary-nav{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.paperPlaneMessage{
+
+    width: 30px;
+    margin-right: 10px;
+
+
+}
+.bloc-profil{
+    display: flex;
+    align-items: center;
+
+}
+.menu-deroulant-profil{
+
+    position: relative;
+    margin-right: 4vw;
+}
+.contenu-menu-deroulant{
+
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    top: 10vh;
+    left: -1.3vw;
+
+}
 .profilPicture{
 
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
-    /* border:2px rgb(105, 105, 105) solid; */
+    box-shadow:1px 1px 5px rgba(0, 0, 0,.1);
+    cursor: pointer;
+
 
 
 }
@@ -30,10 +66,6 @@
     width: 150px;
     height: 150px;
     padding: 5px;
-
-
-
-
 }
 .container{
     display: flex;
@@ -207,14 +239,35 @@ input.file {
     z-index: 1;
 }
 
-.blocTrophe>img{
+.blocTropheImage>img{
     width: 70px;
     transition: 0.3s;
+    
+
 }
-.blocTrophe>img:hover{
+.blocTropheImage{
+    border: 1px #333 solid;
+    padding: 20px;
+    padding-left:7vw ;
+    padding-right:7vw ;
+    border-radius: 15px;
+}
+.blocTropheImage>img:hover{
     width: 70px;
     transform: rotate(5deg);
-   filter:drop-shadow(1px 1px 5px rgba(156, 156, 156, 0.3));
+    filter:drop-shadow(1px 1px 5px rgba(156, 156, 156, 0.3));
+}
+.blocDescription{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(143, 143, 143, 0.1);
+
+
 }
 .blocTrophe{
     display: flex ;
@@ -222,6 +275,9 @@ input.file {
     justify-content: center;
     align-items: center;
     margin-left: 5vw;
+    border: 1px #333 solid;
+    padding: 20px;
+    border-radius: 15px;
 }
 .blocAllTrophe{
     width: 80%;
@@ -258,26 +314,44 @@ justify-content: center;
 align-items: center;
 
 }
+.barre-utilisateur{
+
+    position: relative;
+    top: 0;
+
+
+}
+.profilPictureImgGroupe{
+
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+
+}
 
 .blocUtilisateur{
 
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
     padding: 5px;
-
     margin-bottom: 5px;
     height: auto;
     word-break: break-all;
 }
+.blocUtilisateur>p{
+    margin-right:20px ;
+}
 .blocDestinataire{
-
     width: 90%;
     padding: 5px;
     margin-bottom: 8px;
     word-break: break-all;
+}
+.blocDestinataire>p{
+    margin-left:20px ;
 
 }
 .profilPictureMsg{
@@ -304,7 +378,7 @@ align-items: center;
     border:  1px solid #333;
     margin-bottom: 10px;
     background-color: white;
-    
+ 
 
 }
 .blocRepondreMessage>form>textarea{
@@ -337,9 +411,9 @@ align-items: center;
 }
 
 .blocPrivateMessage{
-    width: 90%;
+    width: 80%;
    display: flex;
-   flex-direction: column;
+   flex-direction: column-reverse;
    align-items: center;
    justify-content: center;
     margin-bottom: 60px;

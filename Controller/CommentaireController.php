@@ -41,6 +41,7 @@ Use Dao\UtilisateurDao;
                 $reponse->showAnswer($settings[0]);
                 $reponse->answer($settings[0]);
                 
+                
                
             }
             else {
@@ -64,7 +65,7 @@ Use Dao\UtilisateurDao;
                 $id_utilisateur=htmlspecialchars($_POST['id_utilisateur']);
                 if ($contenu != '' && $id_utilisateur != '' && $titre !='' && $id_tag!='') {
                     $dao->postAsk($titre,$contenu,$id_tag,$id_utilisateur);
-                    $this->refresh(0);
+                    // $this->refresh(0);
                 }
                 else{
                     echo"Veillez remplir tous les champs";
